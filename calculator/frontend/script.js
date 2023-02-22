@@ -29,9 +29,6 @@ function validatorFields() {
 
 
 }
-
-
-
 function calculateFinalBudgetFigure() {
     //get the selected time period
     var dropdownMenu = document.getElementById("selectedTimePeriod")

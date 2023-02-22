@@ -1,3 +1,23 @@
+
+.container{
+    margin-top: 50px;
+    max-width: 1000px;
+    width: 80%;
+    border-radius: 10px;
+    background-color: rgb(234, 234, 234);
+
+}
+.calcualator-header{
+    font-style: italic;
+    color: purple;
+    text-align: center;
+}
+
+#budget{
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 70%;
+}
 .form-group br {
     display: none;
 }
@@ -17,5 +37,13 @@
 }
 
 .slider-range-widget {
-    width: 50%;
+    width: 80%;
+}
+.field{
+    margin-top: 30px;
+}
+
+.btn-wrapper{
+    justify-content: center;
+    margin-top: 60px;
 }
