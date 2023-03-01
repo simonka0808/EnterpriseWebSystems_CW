@@ -23,7 +23,7 @@
 <body>
 
 
-  <div class="container form-group">
+  <div class="default-container form-group" id="calculatorWrapper">
     <h2 class="calcualator-header">Quotes and budgets for everyone</h2>
     <form id="budget">
       <div class="field">
@@ -54,13 +54,16 @@
           <output id="workedHoursOutput">37</output>
         </div>
       </div>
-      <div class="btn-wrapper">
-      <button class="btn btn-primary" id="submitBtn" type="button"
-        onclick="validatorFields();calculateFinalBudgetFigure()">Submit</button>
+      <div class="btn-wrapper" id="submitBtn">
+        <button class="btn btn-primary" id="submitBtn" type="button"
+          onclick="validatorFields();calculateFinalBudgetFigure()">Submit</button>
       </div>
-      <label id="calculatedBudget"> .... </label>
 
     </form>
+  </div>
+  <div class="container result" id>
+    Answer
+    <label id="calculatedBudget">0</p>
   </div>
 
 

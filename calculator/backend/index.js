@@ -7,7 +7,7 @@ var app = express();
 // The database
 //const MongoClient = require('mongodb').MongoClient;
 const { MongoClient } = require("mongodb");
-const uri = "mongodb://test:password@127.0.0.1:27017/mydb";
+const uri = "mongodb://test:password@127.0.0.1:27017/budget_db";
 
 var options = {
     index: "myWebPage.html"
