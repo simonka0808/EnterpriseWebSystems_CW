@@ -7,7 +7,7 @@ var app = express();
 // The database
 //const MongoClient = require('mongodb').MongoClient;
 const { MongoClient } = require("mongodb");
-const uri = "mongodb://test:password@127.0.0.1:27017/budget_db";
+const uri = "mongodb://127.0.0.1:27017/budget_db";
 
 var options = {
     index: "myWebPage.html"
@@ -26,6 +26,7 @@ app.get('/api/getBudgetComponents', function (req, res) {
     console.log("Storing quote: " + h + " " + w + " " + t)
     console.log("Mongo URI is " + uri)
 
+
     // Database stuff
     // Create a new MongoClient
     const client = new MongoClient(uri);
@@ -33,7 +34,7 @@ app.get('/api/getBudgetComponents', function (req, res) {
         try {
             console.log('Start the database stuff');
             var dbo = client.db("budget_db");
-            var myobj = { hourlyPay: h, timePeriod: s, workedHours: w };
+            var myobj = { hourlyPay: h, timePeriod: t, workedHours: w };
             await dbo.collection("quotes").insertOne(myobj, function (err, res) {
                 if (err) {
                     console.log(err);
