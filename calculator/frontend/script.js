@@ -42,9 +42,9 @@ function calculateFinalBudgetFigure() {
 
     if (selectedIndex == "1") {
 
-        costPerPerson = workedHours*hourlyPay;
+        costPerPerson = workedHours * hourlyPay * calculateRandomFudgeNum();
     } else if (selectedIndex == "2") {
-        costPerPerson = workedHours*hourlyPay*5;
+        costPerPerson = workedHours * hourlyPay * 5 * calculateRandomFudgeNum();
         console.log(costPerPerson);
 
     } else if (selectedIndex == "3") {
@@ -52,9 +52,20 @@ function calculateFinalBudgetFigure() {
     } else {
         console.log("Annually");
     }
-
-
+    
 
 }
 
+function calculateRandomFudgeNum() {
+
+    // fudge factor`s scope
+    max = 1.2;
+    min = 0.5;
+   
+    let fudgeFactor = Math.random() * (max - min) + min;
+
+    console.log(fudgeFactor);
+
+    return fudgeFactor;
+}
 

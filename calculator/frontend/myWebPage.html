@@ -73,7 +73,7 @@
 
     function handleBudget() {
       var hourlyPay = $('#hourlyPay').val();
-      var timePeriod = $('#selectedTimePeriod').val();
+      var timePeriod = $('#selectedTimePeriod option:selected').text();
       var workedHours = $('#workedHoursOutput').val();
 
       var url = "/api/getBudgetComponents?" + "hourlyPay=" + hourlyPay + "&period=" + timePeriod + "&workedHours=" + workedHours;
