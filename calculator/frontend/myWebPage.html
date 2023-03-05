@@ -24,36 +24,142 @@
 
 
   <div class="default-container form-group" id="calculatorWrapper">
-    <h2 class="calcualator-header">Quotes and budgets for everyone</h2>
-    <form id="budget">
+    <h2 class="default-header">Quotes and budgets for everyone</h2>
+    <form id="budget" class="main-budget-wrapper">
       <div class="field">
         <label for="hourlyPay">Please specify your hourly pay!</label>
-        <input type="number" id="hourlyPay" name="hourlyPay" class="form-control" /><br><br>
+        <input min="0" type="number" id="hourlyPay" name="hourlyPay" class="form-control" /><br><br>
         <p id="hourlyPayCheck"></p>
       </div>
       <div class="field">
         <label for="timePeriod">For what time of period? </label>
-        <select id="selectedTimePeriod" onchange="updateNumbers()" class="form-select"
-          aria-label="Default select example">
+        <select id="selectedTimePeriod" class="form-select" aria-label="Default select example">
           <option selected>Select a period of time</option>
-          <option value="1">Daily</option>
-          <option value="2">Weekly</option>
-          <option value="3">Monthly</option>
-          <option value="4">Annually</option>
+          <option id="daily" value="1">Daily</option>
+          <option id="weekly" value="2">Weekly</option>
+          <option id="monthly" value="3">Monthly</option>
+          <option id="annually" value="4">Annually</option>
         </select>
         <p id="timePeriodCheck"></p>
       </div>
+      <div class="weekly-scheme" id="weeklyScheme">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Mon:</label>
+            <input min="0" type="number" class="form-control" id="day1" name="day" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Tue:</label>
+            <input min="0" type="number" class="form-control" id="day2" name="day" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Wed:</label>
+            <input min="0" type="number" class="form-control" id="day3" name="day" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Thr:</label>
+            <input min="0" type="number" class="form-control" id="day4" name="day" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Fri:</label>
+            <input min="0" type="number" class="form-control" id="day5" name="day" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Sat:</label>
+            <input min="0" type="number" class="form-control" id="day6" name="day" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Sun:</label>
+            <input min="0" type="number" class="form-control" id="day7" name="day" /><br><br>
+          </div>
 
-      <div class="field col">
-        <div class="slider-range-wrapper">
-          <span id="workedHours"></span>
-
-
-          <input class="slider-range-widget" type="range" value="37" min="2" max="1000"
-            oninput="this.nextElementSibling.value = this.value">
-          <output id="workedHoursOutput">37</output>
         </div>
       </div>
+
+
+      <div class="monthly-scheme" id="monthlyScheme">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <label name="week" for="monthlyWorkingHours">Week 1:</label>
+
+            <input min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Week 2:</label>
+            <input name="week" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Week 3:</label> <input name="week" min="0" type="number"
+              class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Week 4:</label> <input name="week" min="0" type="number"
+              class="form-control" /><br><br>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="daily-scheme" id="dailySheme">
+        <div class="row">
+
+          <div class="slider-range-wrapper">
+            <span id="workedHours"></span>
+
+
+            <input class="slider-range-widget" type="range" value="10" min="2" max="20"
+              oninput="this.nextElementSibling.value = this.value">
+            <output id="workedHoursOutput">37</output>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="annual-scheme" id="annualScheme">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Jan:</label>
+
+            <input name="month" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Feb:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Mar:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Apr:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">May:</label><input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Jun:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Jul:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Aug:</label><input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Sept:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12">
+            <label for="monthlyWorkingHours">Oct:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Nov:</label><input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+          <div class="col-md-4 col-sm-12 ">
+            <label for="monthlyWorkingHours">Dec:</label> <input name="month" min="0" type="number" class="form-control" /><br><br>
+          </div>
+
+        </div>
+      </div>
+
       <div class="btn-wrapper" id="submitBtn">
         <button class="btn btn-primary" id="submitBtn" type="button"
           onclick="validatorFields();calculateFinalBudgetFigure()">Submit</button>
@@ -61,11 +167,14 @@
 
     </form>
   </div>
-  <div class="container result" id>
-    Answer
+  <div class="default-container result" id>
+    <h2 class="default-header">Result</h2>
+    <div class="result-wrapper">
+      <p>Your budget has been calculated based on the following formula:</p>
+      <p>Your budget = Your pay per hour * you working hours for that period</p>
+    </div>
     <label id="calculatedBudget">0</p>
   </div>
-
 
 
   <script>
