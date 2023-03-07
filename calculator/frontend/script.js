@@ -1,3 +1,4 @@
+const pound = "£"
 
 function validatorFields() {
 
@@ -30,11 +31,11 @@ function validatorFields() {
 
 }
 function calculateFinalBudgetFigure() {
-    findTotalWeeklyWorkingHours();
 
-    findTotalMonthlyWorkingHours();
 
-    findTotalAnnuallyWorkingHours();
+
+    //currency type
+
     //get the selected time period
     var dropdownMenu = document.getElementById("selectedTimePeriod");
     var selectedIndex = dropdownMenu.value;
@@ -47,15 +48,20 @@ function calculateFinalBudgetFigure() {
 
     if (selectedIndex == "1") {
 
-        costPerPerson = workedHours * hourlyPay * calculateRandomFudgeNum();
+        costPerPerson = findSingleDayWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+
+
     } else if (selectedIndex == "2") {
-        costPerPerson = workedHours * hourlyPay * 5 * calculateRandomFudgeNum();
-        console.log(costPerPerson);
+        costPerPerson = findTotalWeeklyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
 
     } else if (selectedIndex == "3") {
-        // console.log("Monthly");
-    } else {
-        // console.log("Annually");
+        costPerPerson = findTotalMonthlyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+    } else if (selectedIndex = "4") {
+        costPerPerson = findTotalAnnuallyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
     }
 }
 
@@ -63,7 +69,7 @@ function calculateRandomFudgeNum() {
 
     // fudge factor`s scope
     max = 1.2;
-    min = 0.5;
+    min = 0.85;
 
     let fudgeFactor = Math.random() * (max - min) + min;
 
@@ -73,13 +79,21 @@ function calculateRandomFudgeNum() {
 
 //loop through the form and find the total working hours for each time period
 
-function findTotalWeeklyWorkingHours() {
-    var arr = document.getElementsByName('day');
+
+
+function findSingleDayWorkingHours() {
+
+    var arr = document.getElementsByName('singleDay');
     var output = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
-        output += parseInt(arr[i].value);
+            output += parseInt(arr[i].value);
     }
+    document.getElementById("workedHoursOutput").innerHTML = output;
+
+
+    return output
+
 }
 
 function findTotalMonthlyWorkingHours() {
@@ -87,17 +101,43 @@ function findTotalMonthlyWorkingHours() {
     var output = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
-        output += parseInt(arr[i].value);
+            output += parseInt(arr[i].value);
     }
+    document.getElementById("workedHoursOutput").innerHTML = output;
+
+    return output
+
 }
 
-function findTotalAnnuallyWorkingHours() {
-    var arr = document.getElementsByName('month');
+function findTotalWeeklyWorkingHours() {
+    var arr = document.getElementsByName('day');
     var output = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
-        output += parseInt(arr[i].value);
+            output += parseInt(arr[i].value);
     }
+    document.getElementById("workedHoursOutput").innerHTML = output;
+
+
+    return output
+
+}
+
+
+
+function findTotalAnnuallyWorkingHours() {
+    var arr = document.getElementsByName('month');
+    var timePeriod = $('#selectedTimePeriod option:selected').text();
+
+    var output = 0;
+    for (var i = 0; i < arr.length; i++) {
+        if (parseInt(arr[i].value))
+            output += parseInt(arr[i].value);
+    }
+    document.getElementById("workedHoursOutput").innerHTML = output;
+    document.getElementById("storePeriodCheck").innerHTML = timePeriod;
+
+    return output
 }
 
 //functions to display different inputs based on the dropdown selection
@@ -106,6 +146,7 @@ $(function () {
     $("#selectedTimePeriod").change(function () {
         if ($("#weekly").is(":selected")) {
             $(".weekly-scheme").show();
+
         } else {
             $(".weekly-scheme").hide();
         }

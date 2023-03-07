@@ -21,10 +21,12 @@ app.get('/api', function (req, res) {
 
 app.get('/api/getBudgetComponents', function (req, res) {
     var h = req.query.hourlyPay;
-    var w = req.query.workedHours;
     var t = req.query.timePeriod;
-    console.log("Storing quote: " + h + " " + w + " " + t)
+    var w = req.query.workedHours;
+
+    console.log("Storing quote: " + h + " " + t + " " + w)
     console.log("Mongo URI is " + uri)
+    
 
 
     // Database stuff
