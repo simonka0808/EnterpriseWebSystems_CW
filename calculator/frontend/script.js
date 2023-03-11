@@ -2,20 +2,19 @@ const pound = "£"
 
 function validatorFields() {
 
-    var hourlyPay = document.getElementById("hourlyPay").value;
-    var output;
 
     var selectedTimePeriod = document.getElementById("selectedTimePeriod").value;
     var selectedTimePeriodOutput;
 
-    //check for the hourly pay field
-    if (hourlyPay == "") {
-        output = "Hourly pay can`t be empty!";
-    } else if (hourlyPay < 1) {
-        output = "Hourly pay can`t be a negative number!";
+    var projectName = document.getElementById("projectNameText").value;
+    var projectNameOutput;
 
+
+    //check for the project name
+    if (projectName == "") {
+        projectNameOutput = "Project name can`t be empy";
     } else {
-        output = "";
+        projectNameOutput = "";
     }
 
     //check if there is a selected value inside the dropdown
@@ -24,42 +23,47 @@ function validatorFields() {
     } else {
         selectedTimePeriodOutput = "";
     }
+
+
     //print the output on the screen
-    document.getElementById("hourlyPayCheck").innerHTML = output;
     document.getElementById("timePeriodCheck").innerHTML = selectedTimePeriodOutput;
+    document.getElementById("projectNameCheck").innerHTML = projectNameOutput;
+
 
 
 }
 function calculateFinalBudgetFigure() {
 
-
-
-    //currency type
+    //amount of money per hour for a specific position
+    var junior = 10;
+    var standard = 20;
+    var senior = 40;
 
     //get the selected time period
     var dropdownMenu = document.getElementById("selectedTimePeriod");
-    var selectedIndex = dropdownMenu.value;
-    var text = dropdownMenu.options[dropdownMenu.selectedIndex].text;
+    var selectedTimePeriodIndex = dropdownMenu.value;
 
-    var workedHours = parseFloat(document.getElementById("workedHoursOutput").value);
-    var hourlyPay = parseFloat(document.getElementById("hourlyPay").value);
+    //get the developer type
 
-    var costPerPerson;
+    var devType = document.querySelector('input[name="devType"]:checked').value;
 
-    if (selectedIndex == "1") {
+
+
+
+    if (selectedTimePeriodIndex == "1") {
 
         costPerPerson = findSingleDayWorkingHours() * hourlyPay * calculateRandomFudgeNum();
         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
 
 
-    } else if (selectedIndex == "2") {
+    } else if (selectedTimePeriodIndex == "2") {
         costPerPerson = findTotalWeeklyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
 
-    } else if (selectedIndex == "3") {
+    } else if (selectedTimePeriodIndex == "3") {
         costPerPerson = findTotalMonthlyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
-    } else if (selectedIndex = "4") {
+    } else if (selectedTimePeriodIndex = "4") {
         costPerPerson = findTotalAnnuallyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
     }
@@ -84,12 +88,15 @@ function calculateRandomFudgeNum() {
 function findSingleDayWorkingHours() {
 
     var arr = document.getElementsByName('singleDay');
+    var timePeriod = $('#selectedTimePeriod option:selected').text();
+
     var output = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
             output += parseInt(arr[i].value);
     }
     document.getElementById("workedHoursOutput").innerHTML = output;
+    document.getElementById("storePeriodCheck").innerHTML = timePeriod;
 
 
     return output
@@ -98,12 +105,15 @@ function findSingleDayWorkingHours() {
 
 function findTotalMonthlyWorkingHours() {
     var arr = document.getElementsByName('week');
+    var timePeriod = $('#selectedTimePeriod option:selected').text();
+
     var output = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
             output += parseInt(arr[i].value);
     }
     document.getElementById("workedHoursOutput").innerHTML = output;
+    document.getElementById("storePeriodCheck").innerHTML = timePeriod;
 
     return output
 
@@ -111,12 +121,15 @@ function findTotalMonthlyWorkingHours() {
 
 function findTotalWeeklyWorkingHours() {
     var arr = document.getElementsByName('day');
+    var timePeriod = $('#selectedTimePeriod option:selected').text();
+
     var output = 0;
     for (var i = 0; i < arr.length; i++) {
         if (parseInt(arr[i].value))
             output += parseInt(arr[i].value);
     }
     document.getElementById("workedHoursOutput").innerHTML = output;
+    document.getElementById("storePeriodCheck").innerHTML = timePeriod;
 
 
     return output
