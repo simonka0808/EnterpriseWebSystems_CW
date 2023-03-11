@@ -1,0 +1,88 @@
+
+//import our packages
+require("dotenv").config();
+var express = require('express');
+var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
+var session = require("express-session");
+var passport = require("passport");
+var ejs = require("ejs");
+
+
+//import routes
+var authRoute =require("./routes/auth");
+
+//setup the application
+var app = express();
+
+
+//setup ejs, body-parser and express-static
+app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
+
+
+//create a ssesion
+app.use(session({
+    secret:process.env.SECRET,
+    resave:false,
+    saveUninitialized:false
+}))
+
+//passport init
+app.use(passport.initialize());
+
+//use passport
+app.use(passport.session());
+
+//use routes
+app.use('/', authRoute);
+
+//connect to db
+mongoose.connect(process.env.DB_CONNECT)
+.then(() => console.log("database connection successfull"))
+.catch(err => console.log(err))
+
+mongoose.set('strictQuery', true);
+
+// main functionalities from here:
+
+// app.get("/",(req,res) => {
+//     res.render("index");
+// })
+
+// //get the registration form
+
+// app.get("/registration",(req,res) => {
+//     res.render("registration");
+// })
+
+
+// //get the login form
+
+// app.get("/login",(req,res) => {
+//     res.render("login");
+// })
+
+// //get the calculator
+// app.get("/create",(req,res) => {
+//     res.render("calculator");
+// })
+
+
+// //get all quotes
+// app.get("/display",(req,res) => {
+//     res.render("allQuotes");
+// })
+
+
+
+
+
+
+
+
+
+
+//start the session
+app.listen(process.env.PORT, ()=> console.log("Server is listening"));
