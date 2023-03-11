@@ -11,6 +11,8 @@ var ejs = require("ejs");
 
 //import routes
 var authRoute =require("./routes/auth");
+var quoteRoute =require("./routes/singleQuote");
+
 
 //setup the application
 var app = express();
@@ -37,6 +39,7 @@ app.use(passport.session());
 
 //use routes
 app.use('/', authRoute);
+app.use("/", quoteRoute);
 
 //connect to db
 mongoose.connect(process.env.DB_CONNECT)
@@ -44,44 +47,6 @@ mongoose.connect(process.env.DB_CONNECT)
 .catch(err => console.log(err))
 
 mongoose.set('strictQuery', true);
-
-// main functionalities from here:
-
-// app.get("/",(req,res) => {
-//     res.render("index");
-// })
-
-// //get the registration form
-
-// app.get("/registration",(req,res) => {
-//     res.render("registration");
-// })
-
-
-// //get the login form
-
-// app.get("/login",(req,res) => {
-//     res.render("login");
-// })
-
-// //get the calculator
-// app.get("/create",(req,res) => {
-//     res.render("calculator");
-// })
-
-
-// //get all quotes
-// app.get("/display",(req,res) => {
-//     res.render("allQuotes");
-// })
-
-
-
-
-
-
-
-
 
 
 //start the session
