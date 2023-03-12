@@ -13,11 +13,17 @@ passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
+passport.deserializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, user);
     });
 });
+
+// passport.deserializeUser(function (id, done) {
+//     User.findById(id, function (err, user) {
+//         done(err, user);
+//     });
+// });
 
 
 
@@ -43,32 +49,37 @@ router.post("/auth/register", async (req, res) => {
 
 //post request to login user 
 
+
 router.post("/auth/login", (req, res) => {
     //add new user object
     const authenticate = new User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.passport
     });
-
-
-    //passport login method
+    //login method
     req.login(authenticate, (err) => {
         if (err) {
             console.log(err)
         } else {
-            passport.authenticate('local-signin')(req, res, function () {
+            passport.authenticate("local")(req, res, function () {
                 res.redirect("/display");
             });
         }
     });
 
 });
-
+console.log("logout attempt");
 //post request to logout
 router.post("/auth/logout", (req, res) => {
+    console.log("trying to logout");
+
+    req.session.destroy();
     req.logout();
     res.redirect("/");
+
 })
+
+
 
 //eport router
 module.exports = router;

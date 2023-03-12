@@ -50,4 +50,4 @@ mongoose.set('strictQuery', true);
 
 
 //start the session
-app.listen(process.env.PORT, ()=> console.log("Server is listening"));
+app.listen(process.env.PORT, ()=> console.log('Server is listening on http://localhost:'+process.env.PORT+'/'));
