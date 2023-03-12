@@ -68,14 +68,12 @@ router.post("/auth/login", (req, res) => {
     });
 
 });
-console.log("logout attempt");
 //post request to logout
 router.post("/auth/logout", (req, res) => {
-    console.log("trying to logout");
 
     req.session.destroy();
-    req.logout();
-    res.redirect("/");
+    // req.logout();
+    // // res.redirect("/");
 
 })
 

@@ -54,12 +54,12 @@ router.get("/display", async (req, res) => {
 
 //get create a quote page(calculator)
 
-router.get("/calculator", async (req, res) => {
+router.get("/submit", async (req, res) => {
     //if user is logged in
     if (req.isAuthenticated()) {
         res.render('calculator')
     } else {
-        red.redirect("/register");
+        res.redirect("/register");
     }
 });
 
@@ -80,7 +80,7 @@ router.post("/submit", async(req, res) => {
 
         //redirect to all quotes if success
         !saveQuote && res.redirect('/submit');
-        res.redirect('/quotes');
+        res.redirect('/display');
     }catch(err){
         res.send(err);
     }
