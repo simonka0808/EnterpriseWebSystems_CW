@@ -59,7 +59,7 @@ router.get("/submit", async (req, res) => {
     if (req.isAuthenticated()) {
         res.render('calculator')
     } else {
-        res.redirect("/register");
+        res.redirect("/login");
     }
 });
 
@@ -67,11 +67,17 @@ router.get("/submit", async (req, res) => {
 
 //POST
 //create a quote
-router.post("/submit", async(req, res) => {
-    try{
-        const quote = new SingleQuote ({
+router.post("/submit", async (req, res) => {
+    try {
+        const quote = new SingleQuote({
             projectName: req.body.projectName,
-            devType: req.body.devType
+            devType: req.body.devType,
+            hours: req.body.singleDay,
+            monthlyHours: req.body.week,
+            weeklyHours: req.body.day,
+            annuallyHours: req.body.month
+            // period: req.body.timePeriodCheck
+
 
         });
 
@@ -81,7 +87,7 @@ router.post("/submit", async(req, res) => {
         //redirect to all quotes if success
         !saveQuote && res.redirect('/submit');
         res.redirect('/display');
-    }catch(err){
+    } catch (err) {
         res.send(err);
     }
 });

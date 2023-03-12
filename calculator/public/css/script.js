@@ -202,3 +202,22 @@ $(function () {
     }).trigger('change');
 });
 
+function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const data = new FormData(event.target);
+    
+    const formJSON = Object.fromEntries(data.entries());
+  
+    // for multi-selects, we need special handling
+    formJSON.snacks = data.getAll('devType');
+    
+    results.innerText = JSON.stringify(formJSON, null, 2);
+  }
+  
+  const form = document.querySelector('#budget');
+  if(form){
+    form.addEventListener('submit', handleFormSubmit);
+
+  }
+  

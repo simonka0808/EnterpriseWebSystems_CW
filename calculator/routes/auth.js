@@ -19,11 +19,11 @@ passport.deserializeUser(function (user, cb) {
     });
 });
 
-// passport.deserializeUser(function (id, done) {
-//     User.findById(id, function (err, user) {
-//         done(err, user);
-//     });
-// });
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
 
 
@@ -72,8 +72,8 @@ router.post("/auth/login", (req, res) => {
 router.post("/auth/logout", (req, res) => {
 
     req.session.destroy();
-    // req.logout();
-    // // res.redirect("/");
+    req.logout();
+    // res.redirect("/");
 
 })
 
