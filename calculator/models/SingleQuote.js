@@ -7,12 +7,11 @@ var mongoose = require('mongoose');
 const quoteSchema = new mongoose.Schema({
     projectName: String,
     devType: String,
+    period: String,
     hours: {
         type: 'number'
     },
-    monthlyHours: { type: Array, "default": [] },
-    weeklyHours: { type: Array, "default": [] },
-    annuallyHours: { type: Array, "default": [] }
+    
 
 });
 

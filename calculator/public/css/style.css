@@ -67,3 +67,25 @@
 #finalResult {
     font-weight: bold;
 }
+
+
+/* all quotes page */
+.all-quotes-wrapper{
+    margin-top: 150px;
+}
+
+.single-quote-card{
+    width: 30rem;
+    margin-bottom: 20px;
+}
+
+.list-group-item{
+    font-weight: 600;
+}
+.list-group-item span{
+    font-weight: 200;
+}
+
+.icon-wrapper{
+    width: 200px;
+}

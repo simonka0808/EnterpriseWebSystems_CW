@@ -37,24 +37,29 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="field">
-                    <label for="timePeriod">For what time of period? </label>
-                    <select id="selectedTimePeriod" class="form-select" aria-label="Default select example">
-                        <option selected>Select a period of time</option>
-                        <option id="daily" value="1">Daily</option>
-                        <option id="weekly" value="2">Weekly</option>
-                        <option id="monthly" value="3">Monthly</option>
-                        <option id="annually" value="4">Annually</option>
-                    </select>
-                    <p name= "timePeriodCheck" id="timePeriodCheck"></p>
-                    <p id="storePeriodCheck"></p>
+                    <label for="hours">Hours:</label>
+                    <input name="hours"  class="form-control" type="number">
+                    <p id="projectNameCheck"></p>
+
                 </div>
 
 
 
+                <!-- <div class="field">
+                    <label for="timePeriod">For what time of period? </label>
+                    <select id="selectedTimePeriod" class="form-select" aria-label="Default select example">
+                        <option selected>Select a period of time</option>
+                        <option name="period" id="daily" value="1">Daily</option>
+                        <option name="period" id="weekly" value="2">Weekly</option>
+                        <option name="period" id="monthly" value="3">Monthly</option>
+                        <option name="period" id="annually" value="4">Annually</option>
+                    </select>
+            
+                </div> -->
+
+
+<!-- 
                 <div class="monthly-scheme" id="monthlyScheme">
                     <div class="row">
                         <label>Please specify your working hours!</label>
@@ -193,7 +198,7 @@
 
                     </div>
 
-                </div>
+                </div> -->
 
                 <output id="workedHoursOutput">
                 </output>

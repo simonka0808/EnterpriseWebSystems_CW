@@ -42,10 +42,11 @@ router.get("/login", (req, res) => {
 //get the page with all quotes
 
 router.get("/display", async (req, res) => {
-    //display all quotes from fb
-    const allQuotes = await SingleQuote.find();
-    res.render("display", { allQuotes, isAuth: req.isAuthenticated() });
     try {
+        //display all quotes from fb
+        const allQuotes = await SingleQuote.find();
+        res.render("display", { allQuotes, isAuth: req.isAuthenticated() });
+
 
     } catch (err) {
         res.send(err);
@@ -72,11 +73,7 @@ router.post("/submit", async (req, res) => {
         const quote = new SingleQuote({
             projectName: req.body.projectName,
             devType: req.body.devType,
-            hours: req.body.singleDay,
-            monthlyHours: req.body.week,
-            weeklyHours: req.body.day,
-            annuallyHours: req.body.month
-            // period: req.body.timePeriodCheck
+            hours: req.body.hours
 
 
         });
@@ -92,6 +89,13 @@ router.post("/submit", async (req, res) => {
     }
 });
 
+
+// delete a quote from db
+
+router.post("/delete/:id", async (req, res) => {
+    await Post.deleteOne({ _id: req.params.id })
+    return res.redirect('/')
+});
 
 //export 
 module.exports = router;

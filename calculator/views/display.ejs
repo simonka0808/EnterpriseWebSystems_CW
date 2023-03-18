@@ -1,14 +1,51 @@
 <%- include('partials/header.ejs') %>
 
     <%- include('partials/nav.ejs') %>
+        <div class="container">
+            <div class="all-quotes-wrapper">
+                <div class="form all-quotes" action="/display" method="post">
+                    <h1>Your existing quotes</h1>
+                    <!-- check if there are quotes in the db -->
 
-        <div class="form" action="/display" method="post">
-            <h1>Welcome</h1>
-            <div class="card" style="width: 18rem;">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Project Name</li>
-                </ul>
+                    <% if(allQuotes.length < 1){ %>
+                        <div class="text-center">You do not have any created quotes...</div>
+                        <% } else { %>
+
+                            <% allQuotes.forEach(quote=> { %>
+                                <div class="card single-quote-card">
+                                    <div class="row icon-wrapper align-items-end">
+                                        <div class="col-6 col-sm-3 single-icon">
+                                            <i class="fas fa-edit" style="font-size:25px;color:red"></i>
+
+                                        </div>
+                                        <div class="col-6 col-sm-3 single-icon">
+                                            <form action="/delete/:id" method="post">
+
+                                                <button type="submit" class="btn btn-lg">Delete</button>
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Project Name: <span>
+                                                <%= quote.projectName %>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">Developer Type: <span>
+                                                <%= quote.devType %>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">Hours for that project: <span>
+                                                <%= quote.hours %>
+                                            </span></li>
+                                    </ul>
+                                </div>
+
+                                <% }) %>
+                                    <!-- <% } %> -->
+
+                </div>
             </div>
         </div>
-
         <%- include('partials/footer.ejs') %>
