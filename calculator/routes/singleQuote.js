@@ -1,6 +1,8 @@
 //import express router
 
 const router = require('express').Router();
+var mongoose = require('mongoose')
+var passportLocalMongoose = require('passport-local-mongoose');
 
 //create QUOTE model
 const SingleQuote = require('../models/SingleQuote');
@@ -65,6 +67,21 @@ router.get("/submit", async (req, res) => {
 });
 
 
+// delete a quote from db
+
+router.get('/delete/:id', (req, res, next) => {
+    SingleQuote.findByIdAndDelete({ _id: req.params.id }, (err, docs) => {
+        if (err) {
+            console.log("something went wrong while deleting");
+            next(err);
+        } else {
+            console.log("Deleted sucessfully!");
+        }
+    })
+})
+
+
+
 
 //POST
 //create a quote
@@ -90,12 +107,7 @@ router.post("/submit", async (req, res) => {
 });
 
 
-// delete a quote from db
 
-router.post("/delete/:id", async (req, res) => {
-    await Post.deleteOne({ _id: req.params.id })
-    return res.redirect('/')
-});
 
 //export 
 module.exports = router;
