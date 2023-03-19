@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 var passportLocalMongoose = require('passport-local-mongoose');
 
 //create QUOTE model
-const SingleQuote = require('../models/SingleQuote');
+const Quote = require('../models/SingleQuote');
 
 
 //get home
@@ -46,7 +46,7 @@ router.get("/login", (req, res) => {
 router.get("/display", async (req, res) => {
     try {
         //display all quotes from fb
-        const allQuotes = await SingleQuote.find();
+        const allQuotes = await Quote.find();
         res.render("display", { allQuotes, isAuth: req.isAuthenticated() });
 
 
@@ -70,14 +70,32 @@ router.get("/submit", async (req, res) => {
 // delete a quote from db
 
 router.get('/delete/:id', (req, res, next) => {
-    SingleQuote.findByIdAndDelete({ _id: req.params.id }, (err, docs) => {
+    Quote.findByIdAndDelete({ _id: req.params.id }, (err, docs) => {
         if (err) {
             console.log("something went wrong while deleting");
             next(err);
         } else {
             console.log("Deleted sucessfully!");
+            res.redirect('/display');
+
         }
     })
+})
+
+
+//edit a quote
+
+
+router.get('/edit/:id', (req, res, next) => {
+    console.log(req.params.id);
+
+    Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
+        if (err) {
+            console.log("Cant edit data because of database issues!");
+        } else {
+            res.render('edit', { quotedb: docs });
+        }
+    });
 })
 
 
@@ -87,7 +105,7 @@ router.get('/delete/:id', (req, res, next) => {
 //create a quote
 router.post("/submit", async (req, res) => {
     try {
-        const quote = new SingleQuote({
+        const quote = new Quote({
             projectName: req.body.projectName,
             devType: req.body.devType,
             hours: req.body.hours

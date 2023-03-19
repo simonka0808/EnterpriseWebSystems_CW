@@ -1,0 +1,71 @@
+<%- include('partials/header.ejs') %>
+
+    <%- include('partials/nav.ejs') %>
+
+        <div class="default-container form-group" id="calculatorWrapper">
+            <h2 class="default-header">Quotes and budgets for everyone</h2>
+            <form id="budget" class="main-budget-wrapper" action="/edit/<%- quotedb._id %>" method="post">
+
+
+                <div class="field">
+                    <label for="projectName">Project name</label>
+                    <input name="projectName" id="projectNameText" value ="<%- quotedb.projectName %>" class="form-control" type="text">
+                    <p id="projectNameCheck"></p>
+
+                </div>
+
+                <div class="field">
+                    <label for="projectName">Select a Position:</label>
+
+                    <div class="form-check">
+                        <input type="radio" id="r1" name="devType" value="Junior">
+                        <label class="form-check-label" for="developerType1">
+                            Junior
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="r2" name="devType" value="Standard">
+                        <label class="form-check-label" for="developerType2">
+                            Standard
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" id="r3" name="devType" value="Senior" checked="checked">
+                        <label class="form-check-label" for="developerType3">
+                            Senior
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="hours">Hours:</label>
+                    <input name="hours" value ="<%- quotedb.hours %>"  class="form-control" type="number">
+                    <p id="projectNameCheck"></p>
+
+                </div>
+
+
+                <output id="workedHoursOutput">
+                </output>
+
+                <div class="btn-wrapper" id="submitBtn">
+                    <button class="btn btn-primary" id="submitBtn" type="submit"
+                        onclick="validatorFields();calculateFinalBudgetFigure()">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="default-container result" id>
+            <h2 class="default-header">Result: </h2>
+            <div class="result-wrapper">
+                <p id="finalResult"></p>
+                <p>Your budget has been calculated based on the following formula:</p>
+                <p>Your budget = Your pay per hour * you working hours for that period</p>
+            </div>
+            <label id="calculatedBudget"></p>
+        </div>
+
+
+
+        <%- include('partials/footer.ejs') %>

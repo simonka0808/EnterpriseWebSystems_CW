@@ -15,17 +15,17 @@
                                 <div class="card single-quote-card">
                                     <div class="row icon-wrapper align-items-end">
                                         <div class="col-6 col-sm-3 single-icon">
-                                            <i class="fas fa-edit" style="font-size:25px"></i>
 
+                                            <a href="/edit/<%= quote._id %>"> <i class="fas fa-edit"
+                                                    style="font-size:25px"></i>
+
+                                            </a>
                                         </div>
                                         <div class="col-6 col-sm-3 single-icon">
-                                            <form action="/quote/delete" method="post">
-                                                <input type="hidden" name="quoteId" value="<%=quote.id %>">
-                                                <a href="/delete/<%= quote._id %>"> <i class="fas fa-trash-alt"
-                                                        style="font-size:25px;color:red"></i>
-                                                </a>
+                                            <a href="/delete/<%= quote._id %>"> <i class="fas fa-trash-alt"
+                                                    style="font-size:25px;color:red"></i>
+                                            </a>
 
-                                            </form>
 
                                         </div>
                                     </div>
