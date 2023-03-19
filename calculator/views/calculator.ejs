@@ -39,169 +39,36 @@
 
                 <div class="field">
                     <label for="hours">Hours:</label>
-                    <input name="hours"  class="form-control" type="number">
+                    <input name="hours" class="form-control" type="number">
                     <p id="projectNameCheck"></p>
 
                 </div>
 
 
 
-                <!-- <div class="field">
-                    <label for="timePeriod">For what time of period? </label>
-                    <select id="selectedTimePeriod" class="form-select" aria-label="Default select example">
-                        <option selected>Select a period of time</option>
-                        <option name="period" id="daily" value="1">Daily</option>
-                        <option name="period" id="weekly" value="2">Weekly</option>
-                        <option name="period" id="monthly" value="3">Monthly</option>
-                        <option name="period" id="annually" value="4">Annually</option>
-                    </select>
-            
-                </div> -->
+                <div class="add-human-resouces-main">
+                    <h6>Add non-human resouces to your project:</h6>
+                    <div class="human-resources-wrapper container" id="humanResources">
+                        <div class="resouce-elements row" id="resouceElements">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="human-resource">Software</label>
 
+                                <input name="hardware" class="form-control" type="number">
 
-<!-- 
-                <div class="monthly-scheme" id="monthlyScheme">
-                    <div class="row">
-                        <label>Please specify your working hours!</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="human-resource">Hardware</label>
 
-                        <div class="col-md-4 col-sm-12">
+                                <input name="software" class="form-control" type="number">
 
-                            <label name="week" for="monthlyWorkingHours">Week 1:</label>
-
-                            <input min="0" type="number" class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Week 2:</label>
-                            <input name="week" min="0" type="number" class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Week 3:</label> <input name="week" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Week 4:</label> <input name="week" min="0" type="number"
-                                class="form-control" /><br><br>
+                            </div>
                         </div>
 
+                    </div>
+                    <div id="addHumanResources">
+                        <div onclick="showDiv()" class="btn btn btn-success">Add</div>
                     </div>
                 </div>
-
-
-
-                <div class="weekly-scheme" id="weeklyScheme">
-                    <div class="row">
-                        <label>Please specify your working hours!</label>
-
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Mon:</label>
-                            <input min="0" type="number" class="form-control" id="day1" name="day" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Tue:</label>
-                            <input min="0" type="number" class="form-control" id="day2" name="day" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Wed:</label>
-                            <input min="0" type="number" class="form-control" id="day3" name="day" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Thr:</label>
-                            <input min="0" type="number" class="form-control" id="day4" name="day" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Fri:</label>
-                            <input min="0" type="number" class="form-control" id="day5" name="day" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Sat:</label>
-                            <input min="0" type="number" class="form-control" id="day6" name="day" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Sun:</label>
-                            <input min="0" type="number" class="form-control" id="day7" name="day" /><br><br>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="daily-scheme" id="dailySheme">
-
-                    <div class="row">
-
-                        <div class="col-12">
-                            <label>Please specify your working hours!</label>
-
-                            <label for="dailyWorkingHours"></label>
-                            <input min="0" type="number" class="form-control" id="singleDayID"
-                                name="singleDay" /><br><br>
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="annual-scheme" id="annualScheme">
-                    <div class="row">
-                        <label>Please specify your working hours!</label>
-
-                        <div class="col-md-4 col-sm-12">
-
-                            <label for="monthlyWorkingHours">Jan:</label>
-
-                            <input name="month" type="number" class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Feb:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Mar:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Apr:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">May:</label><input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Jun:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Jul:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Aug:</label><input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Sept:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <label for="monthlyWorkingHours">Oct:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Nov:</label><input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-                        <div class="col-md-4 col-sm-12 ">
-                            <label for="monthlyWorkingHours">Dec:</label> <input name="month" min="0" type="number"
-                                class="form-control" /><br><br>
-                        </div>
-
-                    </div>
-
-                </div> -->
-
-                <output id="workedHoursOutput">
-                </output>
 
                 <div class="btn-wrapper" id="submitBtn">
                     <button class="btn btn-primary" id="submitBtn" type="submit"
@@ -218,9 +85,18 @@
                 <p>Your budget has been calculated based on the following formula:</p>
                 <p>Your budget = Your pay per hour * you working hours for that period</p>
             </div>
-            <label id="calculatedBudget"></p>
+            <output id="calculatedBudget" name="finalBudget"></output>
         </div>
+        <script>
+            function showDiv() {
+                container = document.getElementById('humanResources');
+                section = document.getElementById('resouceElements')
+                container.appendChild(section.cloneNode(true));
 
+
+            }
+
+        </script>
 
 
         <%- include('partials/footer.ejs') %>

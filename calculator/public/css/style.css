@@ -1,7 +1,7 @@
 .default-container {
     margin: 0 auto;
     margin-top: 100px;
-
+    margin-bottom: 80px;
     max-width: 800px;
     width: 60%;
     border-radius: 10px;
@@ -68,24 +68,41 @@
     font-weight: bold;
 }
 
+#addHumanResources {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.add-human-resouces-main {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(48, 100, 48);
+    border-radius: 3px;
+    padding: 18px;
+}
+
+.add-human-resouces-main h6{
+    text-align: center;
+}
 
 /* all quotes page */
-.all-quotes-wrapper{
+.all-quotes-wrapper {
     margin-top: 150px;
 }
 
-.single-quote-card{
+.single-quote-card {
     width: 30rem;
     margin-bottom: 20px;
 }
 
-.list-group-item{
+.list-group-item {
     font-weight: 600;
 }
-.list-group-item span{
+
+.list-group-item span {
     font-weight: 200;
 }
 
-.icon-wrapper{
+.icon-wrapper {
     width: 200px;
 }

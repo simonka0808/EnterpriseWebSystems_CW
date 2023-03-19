@@ -85,20 +85,19 @@ router.get('/delete/:id', (req, res, next) => {
 
 //edit a quote
 
-
+//route to show edit element
 router.get('/edit/:id', (req, res, next) => {
     console.log(req.params.id);
 
     Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
         if (err) {
             console.log("Cant edit data because of database issues!");
+            next(err);
         } else {
             res.render('edit', { quotedb: docs });
         }
     });
 })
-
-
 
 
 //POST
@@ -108,7 +107,8 @@ router.post("/submit", async (req, res) => {
         const quote = new Quote({
             projectName: req.body.projectName,
             devType: req.body.devType,
-            hours: req.body.hours
+            hours: req.body.hours,
+            finalBudget: req.body.finalBudget
 
 
         });
@@ -125,6 +125,20 @@ router.post("/submit", async (req, res) => {
 });
 
 
+//route to edit element
+router.post('/edit/:id', (req, res, next) => {
+
+    Quote.findByIdAndUpdate({_id: req.params.id}, req.body, (err, docs)=> {
+
+        if(err){
+            console.log("Something went wrong while updating the data!");
+            next(err);
+        }else{
+            res.redirect('/display')
+
+        }
+    });
+});
 
 
 //export 
