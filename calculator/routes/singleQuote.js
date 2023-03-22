@@ -108,7 +108,9 @@ router.post("/submit", async (req, res) => {
             projectName: req.body.projectName,
             devType: req.body.devType,
             hours: req.body.hours,
-            finalBudget: req.body.finalBudget
+            finalBudget: req.body.finalBudget,
+            hardwareRes: req.body.hardwareRes,
+            softwareRes: req.body.softwareRes
 
 
         });
@@ -132,6 +134,7 @@ router.post('/edit/:id', (req, res, next) => {
 
         if(err){
             console.log("Something went wrong while updating the data!");
+            console.log(docs)
             next(err);
         }else{
             res.redirect('/display')

@@ -56,20 +56,27 @@
 
 
                         <div class="resouce-elements row" id="resouceElements">
-                            <div class="col-xs-12 col-sm-6">
-                                <label for="human-resource">Software</label>
+                            <% for(var i=0 ; i < quotedb.hardwareRes.length; i++) {%>
 
-                                <input value="<%- quotedb.hardwareRes %>" name="hardwareRes" class="form-control"
-                                    type="number">
+                                <div class="col-xs-12 col-sm-6">
+                                    <label for="human-resource">Hardware</label>
 
-                            </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label for="human-resource">Hardware</label>
+                                    <input value="<%= quotedb.hardwareRes[i] %>" name="hardwareRes" class="form-control"
+                                        type="number">
 
-                                <input value="<%- quotedb.softwareRes %>" name="softwareRes" class="form-control"
-                                    type="number">
+                                </div>
+                                <% } %>
+                                    <% for(var i=0 ; i < quotedb.softwareRes.length; i++) {%>
 
-                            </div>
+
+                                        <div class="col-xs-12 col-sm-6">
+                                            <label for="human-resource">Software</label>
+
+                                            <input value="<%= quotedb.softwareRes[i] %>" name="softwareRes"
+                                                class="form-control" type="number">
+
+                                        </div>
+                                        <% } %>
 
                         </div>
 
@@ -96,7 +103,3 @@
             </div>
             <label id="calculatedBudget"></p>
         </div>
-
-
-
-        <%- include('partials/footer.ejs') %>

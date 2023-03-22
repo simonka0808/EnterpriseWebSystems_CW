@@ -34,7 +34,6 @@ app.use(session({
     saveUninitialized: false
 }))
 
-app.use(express.static(path.join(__dirname, 'public')))
 
 
 
@@ -47,6 +46,9 @@ app.use(passport.session());
 //use routes
 app.use('/', authRoute);
 app.use("/", quoteRoute);
+
+app.use(express.static(__dirname + '/public'));
+
 
 //connect to db
 mongoose.connect(process.env.DB_CONNECT)
