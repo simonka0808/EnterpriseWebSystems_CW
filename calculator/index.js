@@ -9,9 +9,12 @@ var passport = require("passport");
 var ejs = require("ejs");
 
 
+
+
 //import routes
-var authRoute =require("./routes/auth");
-var quoteRoute =require("./routes/singleQuote");
+var authRoute = require("./routes/auth");
+var quoteRoute = require("./routes/singleQuote");
+const path = require("path");
 
 
 //setup the application
@@ -20,16 +23,20 @@ var app = express();
 
 //setup ejs, body-parser and express-static
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.static("public"));
 
 
 //create a ssesion
 app.use(session({
-    secret:process.env.SECRET,
-    resave:false,
-    saveUninitialized:false
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
 }))
+
+app.use(express.static(path.join(__dirname, 'public')))
+
+
 
 //passport init
 app.use(passport.initialize());
@@ -43,11 +50,11 @@ app.use("/", quoteRoute);
 
 //connect to db
 mongoose.connect(process.env.DB_CONNECT)
-.then(() => console.log("database connection successfull"))
-.catch(err => console.log(err))
+    .then(() => console.log("database connection successfull"))
+    .catch(err => console.log(err))
 
 mongoose.set('strictQuery', true);
 
 
 //start the session
-app.listen(process.env.PORT, ()=> console.log('Server is listening on http://localhost:'+process.env.PORT+'/'));
+app.listen(process.env.PORT, () => console.log('Server is listening on http://localhost:' + process.env.PORT + '/'));

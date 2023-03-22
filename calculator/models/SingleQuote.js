@@ -11,7 +11,9 @@ const quoteSchema = new mongoose.Schema({
     hours: {
         type: 'number'
     },
-    resources: { type: Array, "default": [] },
+    hardwareRes: { type: Array, "default": [] },
+    softwareRes: { type: Array, "default": [] },
+
     finalBudget: {
         type: 'number'
     }

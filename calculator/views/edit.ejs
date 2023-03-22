@@ -9,7 +9,8 @@
 
                 <div class="field">
                     <label for="projectName">Project name</label>
-                    <input name="projectName" id="projectNameText" value ="<%- quotedb.projectName %>" class="form-control" type="text">
+                    <input name="projectName" id="projectNameText" value="<%- quotedb.projectName %>"
+                        class="form-control" type="text">
                     <p id="projectNameCheck"></p>
 
                 </div>
@@ -39,7 +40,7 @@
 
                 <div class="field">
                     <label for="hours">Hours:</label>
-                    <input name="hours" value ="<%- quotedb.hours %>"  class="form-control" type="number">
+                    <input name="hours" value="<%- quotedb.hours %>" class="form-control" type="number">
                     <p id="projectNameCheck"></p>
 
                 </div>
@@ -47,6 +48,36 @@
 
                 <output id="workedHoursOutput">
                 </output>
+
+
+                <div class="add-human-resouces-main">
+                    <h6>Add non-human resouces to your project:</h6>
+                    <div class="human-resources-wrapper container" id="humanResources">
+
+
+                        <div class="resouce-elements row" id="resouceElements">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="human-resource">Software</label>
+
+                                <input value="<%- quotedb.hardwareRes %>" name="hardwareRes" class="form-control"
+                                    type="number">
+
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="human-resource">Hardware</label>
+
+                                <input value="<%- quotedb.softwareRes %>" name="softwareRes" class="form-control"
+                                    type="number">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="addHumanResources">
+                        <div onclick="showDiv()" class="btn btn btn-success">Add</div>
+                    </div>
+                </div>
 
                 <div class="btn-wrapper" id="submitBtn">
                     <button class="btn btn-primary" id="submitBtn" type="submit"
