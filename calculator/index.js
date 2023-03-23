@@ -14,6 +14,7 @@ var ejs = require("ejs");
 //import routes
 var authRoute = require("./routes/auth");
 var quoteRoute = require("./routes/singleQuote");
+
 const path = require("path");
 
 
@@ -33,6 +34,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+
 
 
 

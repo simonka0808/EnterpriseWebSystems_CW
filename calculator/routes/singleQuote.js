@@ -6,7 +6,11 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 //create QUOTE model
 const Quote = require('../models/SingleQuote');
+const User = require('../models/User');
 
+
+
+//   getUserWithPosts();
 
 //get home
 router.get("/", (req, res) => {
@@ -64,6 +68,14 @@ router.get("/submit", async (req, res) => {
     } else {
         res.redirect("/login");
     }
+
+    User.find({}).populate("Quote").exec((err, result) => {
+        if (err) {
+            return res.json({ error: err })
+        }
+        res.json({ result: result })
+    });
+
 });
 
 
@@ -110,13 +122,18 @@ router.post("/submit", async (req, res) => {
             hours: req.body.hours,
             finalBudget: req.body.finalBudget,
             hardwareRes: req.body.hardwareRes,
-            softwareRes: req.body.softwareRes
-
-
+            softwareRes: req.body.softwareRes,
         });
 
         //save quote in db
         const saveQuote = quote.save();
+
+        // User.find({}).populate("Quotes").exec((err, result) => {
+        //     if(err){
+        //         return  res.json({error :  err})
+        //     }
+        //     res.json({result :  result})
+        //     });
 
         //redirect to all quotes if success
         !saveQuote && res.redirect('/submit');
@@ -130,13 +147,13 @@ router.post("/submit", async (req, res) => {
 //route to edit element
 router.post('/edit/:id', (req, res, next) => {
 
-    Quote.findByIdAndUpdate({_id: req.params.id}, req.body, (err, docs)=> {
+    Quote.findByIdAndUpdate({ _id: req.params.id }, req.body, (err, docs) => {
 
-        if(err){
+        if (err) {
             console.log("Something went wrong while updating the data!");
             console.log(docs)
             next(err);
-        }else{
+        } else {
             res.redirect('/display')
 
         }

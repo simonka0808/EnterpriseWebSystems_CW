@@ -8,6 +8,10 @@ const quoteSchema = new mongoose.Schema({
     projectName: String,
     devType: String,
     period: String,
+    user: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User'
+    },
     hours: {
         type: 'number'
     },
@@ -23,5 +27,8 @@ const quoteSchema = new mongoose.Schema({
 
 
 //export quote model
-module.exports = mongoose.model('Quote', quoteSchema);
+module.exports = mongoose.model('Quote', quoteSchema, 'quotes');
+
+
+
 

@@ -58,7 +58,7 @@
                         <div class="resouce-elements row" id="resouceElements">
                             <% for(var i=0 ; i < quotedb.hardwareRes.length; i++) {%>
 
-                                <div class="col-xs-12 col-sm-6">
+                                <div class="col-xs-12 col-sm-6" id="hardwareWrapper">
                                     <label for="human-resource">Hardware</label>
 
                                     <input value="<%= quotedb.hardwareRes[i] %>" name="hardwareRes" class="form-control"
@@ -69,7 +69,7 @@
                                     <% for(var i=0 ; i < quotedb.softwareRes.length; i++) {%>
 
 
-                                        <div class="col-xs-12 col-sm-6">
+                                        <div class="col-xs-12 col-sm-6" id="softwareWrapper">
                                             <label for="human-resource">Software</label>
 
                                             <input value="<%= quotedb.softwareRes[i] %>" name="softwareRes"
