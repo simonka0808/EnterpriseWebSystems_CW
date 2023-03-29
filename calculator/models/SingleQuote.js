@@ -1,6 +1,8 @@
 //import mongoose
 var mongoose = require('mongoose');
 
+const user = require('./User');
+
 
 //create Quote Schema
 
@@ -8,8 +10,8 @@ const quoteSchema = new mongoose.Schema({
     projectName: String,
     devType: String,
     period: String,
-    user: {
-        type: [mongoose.Schema.Types.ObjectId],
+    username: {
+        type: mongoose.Schema.Types.String,
         ref: 'User'
     },
     hours: {

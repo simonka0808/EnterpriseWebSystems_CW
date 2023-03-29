@@ -9,11 +9,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
     username: String,
-    password: String,
-    quotes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Quote'
-    }]
+    password: String
 })
 
 

@@ -1,11 +1,19 @@
 <%- include('partials/header.ejs') %>
 
-        <div class="default-container form-group">
+    <div class="default-container form-group">
 
-            <div class="btn-group">
+        <h2 class="default-header">Welcome to D'Amore LLC private budget calculator!</h2>
+        <h5 class="subheader">Please verify yourself to continue:</h5>
+        <div class="btn-group log-reg-wrapper row">
+            <div class="col register-wrapper">
                 <a class="btn btn-primary" href="/register">Register</a>
+            </div>
+            <div class="col">
+
                 <a class="btn btn-primary" href="/login">Login</a>
             </div>
-        </div>
 
-        <%- include('partials/footer.ejs') %>
+        </div>
+    </div>
+
+    <%- include('partials/footer.ejs') %>

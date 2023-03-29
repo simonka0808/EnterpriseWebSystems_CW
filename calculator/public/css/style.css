@@ -10,9 +10,9 @@
 }
 
 .default-header {
-    padding-left: 40px;
+    padding: 20px;
     color: black;
-    text-align: left;
+    text-align: center;
 }
 
 #budget {
@@ -81,7 +81,7 @@
     padding: 18px;
 }
 
-.add-human-resouces-main h6{
+.add-human-resouces-main h6 {
     text-align: center;
 }
 
@@ -107,3 +107,18 @@
     width: 200px;
 }
 
+/* /index */
+
+.log-reg-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.register-wrapper a {
+    float: right;
+}
+
+.subheader {
+    text-align: center;
+}

@@ -128,13 +128,6 @@ router.post("/submit", async (req, res) => {
         //save quote in db
         const saveQuote = quote.save();
 
-        // User.find({}).populate("Quotes").exec((err, result) => {
-        //     if(err){
-        //         return  res.json({error :  err})
-        //     }
-        //     res.json({result :  result})
-        //     });
-
         //redirect to all quotes if success
         !saveQuote && res.redirect('/submit');
         res.redirect('/display');
