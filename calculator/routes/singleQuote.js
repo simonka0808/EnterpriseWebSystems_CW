@@ -8,6 +8,9 @@ var passportLocalMongoose = require('passport-local-mongoose');
 const Quote = require('../models/SingleQuote');
 const User = require('../models/User');
 
+let finalBudget;
+
+const pound = "£"
 
 
 //   getUserWithPosts();
@@ -69,12 +72,12 @@ router.get("/submit", async (req, res) => {
         res.redirect("/login");
     }
 
-    User.find({}).populate("Quote").exec((err, result) => {
-        if (err) {
-            return res.json({ error: err })
-        }
-        res.json({ result: result })
-    });
+    // User.find({}).populate("Quote").exec((err, result) => {
+    //     if (err) {
+    //         return res.json({ error: err })
+    //     }
+    //     res.json({ result: result })
+    // });
 
 });
 
@@ -100,39 +103,79 @@ router.get('/delete/:id', (req, res, next) => {
 //route to show edit element
 router.get('/edit/:id', (req, res, next) => {
     console.log(req.params.id);
-
-    Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
-        if (err) {
-            console.log("Cant edit data because of database issues!");
-            next(err);
-        } else {
-            res.render('edit', { quotedb: docs });
-        }
-    });
+    if (req.isAuthenticated()) {
+        Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
+            if (err) {
+                console.log("Cant edit data because of database issues!");
+                next(err);
+            } else {
+                res.render('edit', { quotedb: docs });
+            }
+        });
+    } else {
+        res.render("login");
+    }
 })
 
 
 //POST
 //create a quote
 router.post("/submit", async (req, res) => {
+    let data = req.body;
+    // console.log(data);
     try {
         const quote = new Quote({
-            projectName: req.body.projectName,
-            devType: req.body.devType,
-            hours: req.body.hours,
-            finalBudget: req.body.finalBudget,
-            hardwareRes: req.body.hardwareRes,
-            softwareRes: req.body.softwareRes,
+            projectName: data.projectName,
+            devType: data.devType,
+            hours: data.hours,
+            finalBudget: data.finalBudget,
+            hardwareRes: data.hardwareRes,
+            softwareRes: data.softwareRes,
         });
 
         //save quote in db
         const saveQuote = quote.save();
 
+
+        //working hours for the project
+        let workingHours = quote.hours;
+
+
+        //any physical resources for the project
+        totalHardwareRes = quote.hardwareRes;
+        totalSoftwareRes = quote.softwareRes;
+        //hourly pay for each employee based on position
+        let seniorPay = 30;
+        let standardPay = 20;
+        let juniorPay = 10;
+
+
+
+        //final pay based on hours and positon
+        totalSeniorPay = workingHours * seniorPay;
+        totalJuniorPay = workingHours * juniorPay;
+        totalStandardPay = workingHours * standardPay;
+
+
         //redirect to all quotes if success
         !saveQuote && res.redirect('/submit');
         res.redirect('/display');
+
+        if (quote.devType == "Junior") {
+            finalBudget = calculateRandomFudgeNum() * totalJuniorPay
+        } else if (quote.devType = "Senior") {
+            finalBudget = calculateRandomFudgeNum() * totalSeniorPay
+        } else if (quote.devType = "Standard") {
+            finalBudget = calculateRandomFudgeNum() * totalStandardPay
+
+        }
+        document.getElementById("finalResult").innerHTML = finalBudget.toFixed(2) + pound;
+
+
+
     } catch (err) {
         res.send(err);
+        console.log(err);
     }
 });
 
@@ -153,6 +196,33 @@ router.post('/edit/:id', (req, res, next) => {
     });
 });
 
+
+
+function CalculateDeveloperCost(data) {
+
+    //different hourly rates based on the position
+
+
+
+
+    // developers.forEach(developer => {
+    //     if (developer.devType == "Junior") {
+    //         console.log("yes")
+    //     }
+    // })
+
+}
+
+function calculateRandomFudgeNum() {
+
+    // fudge factor`s scope
+    max = 1.2;
+    min = 0.85;
+
+    let fudgeFactor = Math.random() * (max - min) + min;
+
+    return fudgeFactor;
+}
 
 //export 
 module.exports = router;

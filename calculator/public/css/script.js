@@ -69,16 +69,7 @@ function calculateFinalBudgetFigure() {
     }
 }
 
-function calculateRandomFudgeNum() {
 
-    // fudge factor`s scope
-    max = 1.2;
-    min = 0.85;
-
-    let fudgeFactor = Math.random() * (max - min) + min;
-
-    return fudgeFactor;
-}
 function showDiv() {
     container = document.getElementById('humanResources');
     section = document.getElementById('resouceElements')
