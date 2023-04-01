@@ -10,8 +10,6 @@ const User = require('../models/User');
 
 let finalBudgetCost;
 
-const pound = "£"
-
 
 //   getUserWithPosts();
 
@@ -96,7 +94,8 @@ router.get('/delete/:id', (req, res, next) => {
 
 //route to show edit element
 router.get('/edit/:id', (req, res, next) => {
-    console.log(req.params.id);
+    // console.log(req.params.id);
+
     if (req.isAuthenticated()) {
         Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
             if (err) {
@@ -120,46 +119,9 @@ router.post("/submit", async (req, res) => {
     try {
 
 
-        //working hours for the project
-        let workingHours = data.hours;
+        var finalBudget = CalculateFinalBudget(req.body);
 
-
-        //any physical resources for the project
-        //should be added to the main budget
-        totalHardwareRes = data.hardwareRes;
-        totalSoftwareRes = data.softwareRes;
-
-        let physicalResources = totalHardwareRes + totalSoftwareRes;
-
-
-
-        //hourly pay for each employee based on position
-        let seniorPay = 30;
-        let standardPay = 20;
-        let juniorPay = 10;
-
-
-
-        //final pay based on hours and positon
-        totalSeniorPay = workingHours * seniorPay;
-        totalJuniorPay = workingHours * juniorPay;
-        totalStandardPay = workingHours * standardPay;
-
-
-
-
-        if (data.devType == "Junior") {
-            finalBudgetCost = (calculateRandomFudgeNum() * totalJuniorPay) + physicalResources
-
-        } else if (data.devType = "Senior") {
-            finalBudgetCost = (calculateRandomFudgeNum() * totalSeniorPay) + physicalResources
-        } else if (data.devType = "Standard") {
-            finalBudgetCost = (calculateRandomFudgeNum() * totalStandardPay) + physicalResources
-
-        }
-
-        // console.log("data ->" + data.hours);
-        // console.log("Quote-> " + quote.hours);
+        //create an object to be stored in the db with the current valeus
         const quote = new Quote({
             projectName: data.projectName,
             devType: data.devType,
@@ -167,7 +129,7 @@ router.post("/submit", async (req, res) => {
             username: data.username,
             hardwareRes: data.hardwareRes,
             softwareRes: data.softwareRes,
-            finalBudget: finalBudgetCost
+            finalBudget: finalBudget
         });
 
         //save quote in db
@@ -183,22 +145,82 @@ router.post("/submit", async (req, res) => {
     }
 });
 
+function CalculateFinalBudget(inputQuote) {
 
+    data = inputQuote
+    //working hours for the project
+    let workingHours = data.hours;
+
+
+    //any physical resources for the project
+    //should be added to the main budget
+    totalHardwareRes = data.hardwareRes;
+    totalSoftwareRes = data.softwareRes;
+
+    let physicalResources = totalHardwareRes + totalSoftwareRes;
+
+
+
+    //hourly pay for each employee based on position
+    let seniorPay = 30;
+    let standardPay = 20;
+    let juniorPay = 10;
+
+
+
+    //final pay based on hours and positon
+    totalSeniorPay = workingHours * seniorPay;
+    totalJuniorPay = workingHours * juniorPay;
+    totalStandardPay = workingHours * standardPay;
+
+
+
+
+    if (data.devType == "Junior") {
+        finalBudgetCost = (calculateRandomFudgeNum() * totalJuniorPay) + physicalResources
+
+    } else if (data.devType = "Senior") {
+        finalBudgetCost = (calculateRandomFudgeNum() * totalSeniorPay) + physicalResources
+    } else if (data.devType = "Standard") {
+        finalBudgetCost = (calculateRandomFudgeNum() * totalStandardPay) + physicalResources
+
+    }
+    return finalBudgetCost;
+}
 //route to edit element
 router.post('/edit/:id', (req, res, next) => {
 
-    Quote.findByIdAndUpdate({ _id: req.params.id }, req.body, (err, docs) => {
+    var data = req.body;
+    var finalBudgetUpdated = CalculateFinalBudget(req.body);
 
+    //updating an existing quote
+    const updatedQuote = {
+        projectName: data.projectName,
+        devType: data.devType,
+        hours: data.hours,
+        username: data.username,
+        hardwareRes: data.hardwareRes,
+        softwareRes: data.softwareRes,
+        finalBudget: finalBudgetUpdated
+    };
+
+
+
+    Quote.findByIdAndUpdate({ _id: req.params.id }, updatedQuote, (err, docs) => {
+        // console.log(req.body.devType);
         if (err) {
             console.log("Something went wrong while updating the data!");
             console.log(docs)
             next(err);
         } else {
+            console.log(req.body)
             res.redirect('/display')
+
 
         }
     });
 });
+
 
 
 function calculateRandomFudgeNum() {

@@ -77,8 +77,6 @@ router.post("/auth/login", (req, res) => {
 router.post("/auth/logout", (req, res) => {
 
     req.session.destroy();
-    req.logout();
-    // res.redirect("/");
 
 })
 

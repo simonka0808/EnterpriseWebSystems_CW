@@ -25,20 +25,6 @@
     display: none;
 }
 
-#hourlyPayCheck {
-    color: red;
-    font-size: 10px;
-}
-
-#timePeriodCheck {
-    color: red;
-    font-size: 10px;
-}
-
-#projectNameCheck {
-    color: red;
-    font-size: 10px;
-}
 
 .slider-range-wrapper {
     margin-top: 20px;
@@ -79,6 +65,7 @@
     border-color: rgb(48, 100, 48);
     border-radius: 3px;
     padding: 18px;
+    margin-bottom: 20px;
 }
 
 .add-human-resouces-main h6 {
