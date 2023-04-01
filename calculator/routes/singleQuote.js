@@ -118,28 +118,16 @@ router.post("/submit", async (req, res) => {
     let data = req.body;
     // console.log(data);
     try {
-        const quote = new Quote({
-            projectName: data.projectName,
-            devType: data.devType,
-            hours: data.hours,
-            username: data.username,
-            hardwareRes: data.hardwareRes,
-            softwareRes: data.softwareRes,
-            finalBudget: finalBudgetCost
-        });
-
-        //save quote in db
-        const saveQuote = quote.save();
 
 
         //working hours for the project
-        let workingHours = quote.hours;
+        let workingHours = data.hours;
 
 
         //any physical resources for the project
         //should be added to the main budget
-        totalHardwareRes = quote.hardwareRes;
-        totalSoftwareRes = quote.softwareRes;
+        totalHardwareRes = data.hardwareRes;
+        totalSoftwareRes = data.softwareRes;
 
         let physicalResources = totalHardwareRes + totalSoftwareRes;
 
@@ -158,23 +146,36 @@ router.post("/submit", async (req, res) => {
         totalStandardPay = workingHours * standardPay;
 
 
-        //redirect to all quotes if success
-        !saveQuote && res.redirect('/submit');
-        res.redirect('/display');
 
-        if (quote.devType == "Junior") {
+
+        if (data.devType == "Junior") {
             finalBudgetCost = (calculateRandomFudgeNum() * totalJuniorPay) + physicalResources
 
-        } else if (quote.devType = "Senior") {
+        } else if (data.devType = "Senior") {
             finalBudgetCost = (calculateRandomFudgeNum() * totalSeniorPay) + physicalResources
-        } else if (quote.devType = "Standard") {
+        } else if (data.devType = "Standard") {
             finalBudgetCost = (calculateRandomFudgeNum() * totalStandardPay) + physicalResources
 
         }
 
-        console.log("data ->" + data.hours);
-        console.log("Quote-> " + quote.hours);
+        // console.log("data ->" + data.hours);
+        // console.log("Quote-> " + quote.hours);
+        const quote = new Quote({
+            projectName: data.projectName,
+            devType: data.devType,
+            hours: data.hours,
+            username: data.username,
+            hardwareRes: data.hardwareRes,
+            softwareRes: data.softwareRes,
+            finalBudget: finalBudgetCost
+        });
 
+        //save quote in db
+        const saveQuote = quote.save();
+
+        //redirect to all quotes if success
+        !saveQuote && res.redirect('/submit');
+        res.redirect('/display');
 
     } catch (err) {
         // res.send(err);
@@ -210,6 +211,8 @@ function calculateRandomFudgeNum() {
 
     return fudgeFactor;
 }
+
+
 
 //export 
 module.exports = router;
