@@ -10,10 +10,7 @@ const quoteSchema = new mongoose.Schema({
     projectName: String,
     devType: String,
     period: String,
-    // username: {
-    //     type: mongoose.Schema.Types.String,
-    //     ref: 'User'
-    // },
+    username: String,
     hours: {
         type: 'number'
     },

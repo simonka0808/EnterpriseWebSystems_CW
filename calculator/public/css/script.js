@@ -1,73 +1,73 @@
-const pound = "£"
+// const pound = "£"
 
-function validatorFields() {
-
-
-    var selectedTimePeriod = document.getElementById("selectedTimePeriod").value;
-    var selectedTimePeriodOutput;
-
-    var projectName = document.getElementById("projectNameText").value;
-    var projectNameOutput;
+// function validatorFields() {
 
 
-    //check for the project name
-    if (projectName == "") {
-        projectNameOutput = "Project name can`t be empy";
-    } else {
-        projectNameOutput = "";
-    }
+//     var selectedTimePeriod = document.getElementById("selectedTimePeriod").value;
+//     var selectedTimePeriodOutput;
 
-    //check if there is a selected value inside the dropdown
-    if (selectedTimePeriod == "Select a period of time") {
-        selectedTimePeriodOutput = "Please select a period!";
-    } else {
-        selectedTimePeriodOutput = "";
-    }
+//     var projectName = document.getElementById("projectNameText").value;
+//     var projectNameOutput;
 
 
-    //print the output on the screen
-    document.getElementById("timePeriodCheck").innerHTML = selectedTimePeriodOutput;
-    document.getElementById("projectNameCheck").innerHTML = projectNameOutput;
+//     //check for the project name
+//     if (projectName == "") {
+//         projectNameOutput = "Project name can`t be empy";
+//     } else {
+//         projectNameOutput = "";
+//     }
+
+//     //check if there is a selected value inside the dropdown
+//     if (selectedTimePeriod == "Select a period of time") {
+//         selectedTimePeriodOutput = "Please select a period!";
+//     } else {
+//         selectedTimePeriodOutput = "";
+//     }
 
 
-
-}
-function calculateFinalBudgetFigure() {
-
-    //amount of money per hour for a specific position
-    var junior = 10;
-    var standard = 20;
-    var senior = 40;
-
-    //get the selected time period
-    var dropdownMenu = document.getElementById("selectedTimePeriod");
-    var selectedTimePeriodIndex = dropdownMenu.value;
-
-    //get the developer type
-
-    var devType = document.querySelector('input[name="devType"]:checked').value;
+//     //print the output on the screen
+//     document.getElementById("timePeriodCheck").innerHTML = selectedTimePeriodOutput;
+//     document.getElementById("projectNameCheck").innerHTML = projectNameOutput;
 
 
 
+// }
+// function calculateFinalBudgetFigure() {
 
-    if (selectedTimePeriodIndex == "1") {
+//     //amount of money per hour for a specific position
+//     var junior = 10;
+//     var standard = 20;
+//     var senior = 40;
 
-        costPerPerson = findSingleDayWorkingHours() * hourlyPay * calculateRandomFudgeNum();
-        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+//     //get the selected time period
+//     var dropdownMenu = document.getElementById("selectedTimePeriod");
+//     var selectedTimePeriodIndex = dropdownMenu.value;
+
+//     //get the developer type
+
+//     var devType = document.querySelector('input[name="devType"]:checked').value;
 
 
-    } else if (selectedTimePeriodIndex == "2") {
-        costPerPerson = findTotalWeeklyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
-        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
 
-    } else if (selectedTimePeriodIndex == "3") {
-        costPerPerson = findTotalMonthlyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
-        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
-    } else if (selectedTimePeriodIndex = "4") {
-        costPerPerson = findTotalAnnuallyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
-        document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
-    }
-}
+
+//     if (selectedTimePeriodIndex == "1") {
+
+//         costPerPerson = findSingleDayWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+//         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+
+
+//     } else if (selectedTimePeriodIndex == "2") {
+//         costPerPerson = findTotalWeeklyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+//         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+
+//     } else if (selectedTimePeriodIndex == "3") {
+//         costPerPerson = findTotalMonthlyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+//         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+//     } else if (selectedTimePeriodIndex = "4") {
+//         costPerPerson = findTotalAnnuallyWorkingHours() * hourlyPay * calculateRandomFudgeNum();
+//         document.getElementById("finalResult").innerHTML = costPerPerson.toFixed(2) + pound;
+//     }
+// }
 
 
 function showDiv() {

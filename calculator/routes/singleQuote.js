@@ -8,7 +8,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 const Quote = require('../models/SingleQuote');
 const User = require('../models/User');
 
-let finalBudget;
+let finalBudgetCost;
 
 const pound = "£"
 
@@ -72,12 +72,6 @@ router.get("/submit", async (req, res) => {
         res.redirect("/login");
     }
 
-    // User.find({}).populate("Quote").exec((err, result) => {
-    //     if (err) {
-    //         return res.json({ error: err })
-    //     }
-    //     res.json({ result: result })
-    // });
 
 });
 
@@ -128,9 +122,10 @@ router.post("/submit", async (req, res) => {
             projectName: data.projectName,
             devType: data.devType,
             hours: data.hours,
-            finalBudget: data.finalBudget,
+            username: data.username,
             hardwareRes: data.hardwareRes,
             softwareRes: data.softwareRes,
+            finalBudget: finalBudgetCost
         });
 
         //save quote in db
@@ -142,8 +137,14 @@ router.post("/submit", async (req, res) => {
 
 
         //any physical resources for the project
+        //should be added to the main budget
         totalHardwareRes = quote.hardwareRes;
         totalSoftwareRes = quote.softwareRes;
+
+        let physicalResources = totalHardwareRes + totalSoftwareRes;
+
+
+
         //hourly pay for each employee based on position
         let seniorPay = 30;
         let standardPay = 20;
@@ -162,19 +163,21 @@ router.post("/submit", async (req, res) => {
         res.redirect('/display');
 
         if (quote.devType == "Junior") {
-            finalBudget = calculateRandomFudgeNum() * totalJuniorPay
+            finalBudgetCost = (calculateRandomFudgeNum() * totalJuniorPay) + physicalResources
+
         } else if (quote.devType = "Senior") {
-            finalBudget = calculateRandomFudgeNum() * totalSeniorPay
+            finalBudgetCost = (calculateRandomFudgeNum() * totalSeniorPay) + physicalResources
         } else if (quote.devType = "Standard") {
-            finalBudget = calculateRandomFudgeNum() * totalStandardPay
+            finalBudgetCost = (calculateRandomFudgeNum() * totalStandardPay) + physicalResources
 
         }
-        document.getElementById("finalResult").innerHTML = finalBudget.toFixed(2) + pound;
 
+        console.log("data ->" + data.hours);
+        console.log("Quote-> " + quote.hours);
 
 
     } catch (err) {
-        res.send(err);
+        // res.send(err);
         console.log(err);
     }
 });
@@ -196,22 +199,6 @@ router.post('/edit/:id', (req, res, next) => {
     });
 });
 
-
-
-function CalculateDeveloperCost(data) {
-
-    //different hourly rates based on the position
-
-
-
-
-    // developers.forEach(developer => {
-    //     if (developer.devType == "Junior") {
-    //         console.log("yes")
-    //     }
-    // })
-
-}
 
 function calculateRandomFudgeNum() {
 

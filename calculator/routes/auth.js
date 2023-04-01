@@ -9,8 +9,13 @@ const User = require('../models/User');
 
 passport.use(User.createStrategy());
 
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
+passport.serializeUser(function (user, cb) {
+    process.nextTick(function () {
+        return cb(null, {
+            id: user.id,
+            username: user.username,
+        });
+    });
 });
 
 passport.deserializeUser(function (user, cb) {
