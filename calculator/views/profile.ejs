@@ -1,0 +1,10 @@
+<%- include('partials/header.ejs') %>
+
+    <%- include('partials/nav.ejs') %>
+        <div class="default-container form-group" action="/profile" method="post">
+            <h2 class="default-header">Hello <span>
+                    <%= user %>
+                </span></h2>
+        </div>
+
+        <%- include('partials/footer.ejs') %>

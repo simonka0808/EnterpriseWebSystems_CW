@@ -11,7 +11,6 @@ const User = require('../models/User');
 let finalBudgetCost;
 
 
-//   getUserWithPosts();
 
 //get home
 router.get("/", (req, res) => {
@@ -24,7 +23,19 @@ router.get("/", (req, res) => {
     }
 });
 
-//get register page
+//get profile page
+router.get("/profile", (req, res) => {
+    //if user is logged in
+    if (req.isAuthenticated()) {
+        res.render("profile", { user: req.user.username });
+        //otherwise send them to main page
+    } else {
+        res.render("index");
+    }
+});
+
+
+//get registration page page
 router.get("/register", (req, res) => {
     //if user is logged in
     if (req.isAuthenticated()) {
