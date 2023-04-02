@@ -9,12 +9,21 @@ const User = require('../models/User');
 
 passport.use(User.createStrategy());
 
+// passport.serializeUser(function (user, cb) {
+//     process.nextTick(function () {
+//         return cb(null, {
+//             id: user.id,
+//             username: user.username,
+//         });
+//     });
+// });
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
         return cb(null, {
             id: user.id,
             username: user.username,
         });
+        
     });
 });
 
@@ -73,13 +82,15 @@ router.post("/auth/login", (req, res) => {
     });
 
 });
+
+
 //post request to logout
-router.post("/auth/logout", (req, res) => {
-
-    req.session.destroy();
-
-})
-
+router.post('/auth/logout', function (req, res, next) {
+    req.logout(function (err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+});
 
 
 //eport router

@@ -8,7 +8,11 @@ var passportLocalMongoose = require('passport-local-mongoose');
 //create user Schema
 
 const userSchema = new mongoose.Schema({
-    username: String,
+    username: {
+        type: 'String',
+        required: [true, "email required"],
+        unique: [true, "email already registered"],
+    },
     password: String
 })
 

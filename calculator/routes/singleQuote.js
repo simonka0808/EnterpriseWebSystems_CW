@@ -115,7 +115,6 @@ router.get('/edit/:id', (req, res, next) => {
 //create a quote
 router.post("/submit", async (req, res) => {
     let data = req.body;
-    // console.log(data);
     try {
 
 
@@ -126,7 +125,7 @@ router.post("/submit", async (req, res) => {
             projectName: data.projectName,
             devType: data.devType,
             hours: data.hours,
-            username: data.username,
+            username: req.user.username,
             hardwareRes: data.hardwareRes,
             softwareRes: data.softwareRes,
             finalBudget: finalBudget
