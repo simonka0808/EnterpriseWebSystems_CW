@@ -82,7 +82,7 @@
 
                     </div>
                     <div id="addHumanResources">
-                        <div onclick="showDiv()" class="btn btn btn-success">Add</div>
+                        <div onclick="addExtraResources()" class="btn btn btn-success">Add</div>
                     </div>
                 </div>
 
@@ -94,11 +94,10 @@
         </div>
 
         <div class="default-container result" id>
-            <h2 class="default-header">Result: </h2>
+            <h2 class="default-header">Result:<span> <%- quotedb.finalBudget %> £ </span> </h2>
             <div class="result-wrapper">
-                <p id="finalResult" name="finalBudget"><%- quotedb.finalBudget %> </p>
                 <p>Your budget has been calculated based on the following formula:</p>
-                <p>Your budget = Your pay per hour * you working hours for that period</p>
+                <p>Your budget = Your pay per hour * you working hours for that period + any non-human costs</p>
             </div>
             <label id="calculatedBudget"></p>
         </div>

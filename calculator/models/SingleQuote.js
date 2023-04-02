@@ -19,8 +19,9 @@ const quoteSchema = new mongoose.Schema({
 
     finalBudget: {
         type: mongoose.Decimal128,
-        set: v => Math.round(v)
+        get: finalBudget => new mongoose.Types.Decimal128((+finalBudget.toString()).toFixed(2))
     }
+
 
 
 });
