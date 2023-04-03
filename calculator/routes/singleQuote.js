@@ -39,7 +39,7 @@ router.get("/profile", (req, res) => {
 router.get("/register", (req, res) => {
     //if user is logged in
     if (req.isAuthenticated()) {
-        res.redirect('/display')
+        res.redirect('/display',)
         //otherwise send them to main page
     } else {
         res.render("register");
@@ -50,7 +50,7 @@ router.get("/register", (req, res) => {
 router.get("/login", (req, res) => {
     //if user is logged in
     if (req.isAuthenticated()) {
-        res.redirect('/display')
+        res.redirect('/display', { user: req.user.username });
         //otherwise send them to main page
     } else {
         res.render("login");
@@ -62,8 +62,15 @@ router.get("/login", (req, res) => {
 router.get("/display", async (req, res) => {
     try {
         //display all quotes from fb
-        const allQuotes = await Quote.find();
-        res.render("display", { allQuotes, isAuth: req.isAuthenticated() });
+        const allQuotes = await Quote.find({ username: req.user.username });
+        // console.log("project name" + allQuotes.projectName)
+        if (req.isAuthenticated()) {
+            res.render("display", { allQuotes, isAuth: req.isAuthenticated() });
+
+        } else {
+            res.render("login");
+
+        }
 
 
     } catch (err) {
@@ -89,12 +96,17 @@ router.get("/submit", async (req, res) => {
 
 router.get('/delete/:id', (req, res, next) => {
     Quote.findByIdAndDelete({ _id: req.params.id }, (err, docs) => {
-        if (err) {
-            console.log("something went wrong while deleting");
-            next(err);
+        if (req.isAuthenticated()) {
+            if (err) {
+                console.log("something went wrong while deleting");
+                next(err);
+            } else {
+                console.log("Deleted sucessfully!");
+                res.redirect('/display');
+
+            }
         } else {
-            console.log("Deleted sucessfully!");
-            res.redirect('/display');
+            res.redirect("/login");
 
         }
     })

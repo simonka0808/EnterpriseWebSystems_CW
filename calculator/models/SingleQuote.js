@@ -14,12 +14,12 @@ const quoteSchema = new mongoose.Schema({
     hours: {
         type: 'number'
     },
-    hardwareRes: { type: Array, "default": [] },
-    softwareRes: { type: Array, "default": [] },
+    hardwareRes: { type: Array, "number": [] },
+    softwareRes: { type: Array, "number": [] },
 
     finalBudget: {
-        type: mongoose.Decimal128,
-        get: finalBudget => new mongoose.Types.Decimal128((+finalBudget.toString()).toFixed(2))
+        type: 'number',
+        // get: finalBudget => new mongoose.Types.Decimal128((+finalBudget.toString()).toFixed(2))
     }
 
 

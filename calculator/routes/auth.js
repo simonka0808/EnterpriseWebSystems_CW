@@ -23,7 +23,7 @@ passport.serializeUser(function (user, cb) {
             id: user.id,
             username: user.username,
         });
-        
+
     });
 });
 
@@ -41,6 +41,14 @@ passport.deserializeUser(function (id, done) {
 
 
 
+//get request to logout
+router.get('/auth/logout', (req, res) => {
+    req.logout(function (err) {
+        if (err) { return (err); }
+        res.redirect('/');
+    });
+});
+ 
 //post request to register user in the db
 
 router.post("/auth/register", async (req, res) => {
@@ -83,14 +91,6 @@ router.post("/auth/login", (req, res) => {
 
 });
 
-
-//post request to logout
-router.post('/auth/logout', function (req, res, next) {
-    req.logout(function (err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-    });
-});
 
 
 //eport router
