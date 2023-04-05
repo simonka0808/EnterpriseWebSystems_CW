@@ -209,6 +209,26 @@ function CalculateFinalBudget(inputQuote) {
     }
     return finalBudgetCost;
 }
+//route to comnine quotes
+
+router.post('/combine',(req,res)=>{
+    data=req.body;
+
+    //get the selected checkbox
+
+    //get the id of that selcted checkbox(quote)
+    
+    const newQuote = new Quote({
+        projectName: body.id,
+        devType: data.devType,
+        hours: data.hours,
+        username: req.user.username,
+        hardwareRes: data.hardwareRes,
+        softwareRes: data.softwareRes,
+        finalBudget: finalBudget
+    });
+
+});
 //route to edit element
 router.post('/edit/:id', (req, res, next) => {
 
@@ -255,6 +275,7 @@ function calculateRandomFudgeNum() {
 
     return fudgeFactor;
 }
+
 
 
 
