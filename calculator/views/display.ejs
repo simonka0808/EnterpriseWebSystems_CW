@@ -13,61 +13,56 @@
 
                             <% allQuotes.forEach(quote=> { %>
 
-                                    <div class="card single-quote-card">
-                                        <div class="row icon-wrapper align-items-end">
-                                            <div class="col-6 col-sm-3 single-icon">
+                                <div class="card single-quote-card">
+                                    <div class="row icon-wrapper align-items-end">
+                                        <div class="col-6 col-sm-3 single-icon">
 
-                                                <a href="/edit/<%= quote._id %>"> <i class="fas fa-edit"
-                                                        style="font-size:25px"></i>
+                                            <a href="/edit/<%= quote._id %>"> <i class="fas fa-edit"
+                                                    style="font-size:25px"></i>
 
-                                                </a>
-                                            </div>
-                                            <div class="col-6 col-sm-3 single-icon">
-                                                <a href="/delete/<%= quote._id %>"> <i class="fas fa-trash-alt"
-                                                        style="font-size:25px;color:red"></i>
-                                                </a>
-
-
-                                            </div>
-                                            <div class="col form-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault">
-                                                <label class="form-check-label" for="flexCheckDefault">
-
-                                                </label>
-                                            </div>
+                                            </a>
                                         </div>
-
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">Project Name: <span>
-                                                    <%= quote.projectName %>
-                                                </span>
-                                            </li>
-                                            <li class="list-group-item">Developer Type: <span>
-                                                    <%= quote.devType %>
-                                                </span>
-                                            </li>
-                                            <li class="list-group-item">Hours for that project: <span>
-                                                    <%= quote.hours %>
-                                                </span></li>
-                                            <div id="total" class="card-footer bg-transparent border-success">Total:
-                                                <span id="finalBudget">
-                                                    <%= quote.finalBudget.toFixed(2) %> £
-                                                </span>
-                                            </div>
+                                        <div class="col-6 col-sm-3 single-icon">
+                                            <a href="/delete/<%= quote._id %>"> <i class="fas fa-trash-alt"
+                                                    style="font-size:25px;color:red"></i>
+                                            </a>
 
 
-                                        </ul>
+                                        </div>
+                                        <div class="col form-check">
+                                            <input class="form-check-input" name="combine" type="checkbox" value=""
+                                                id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+
+                                            </label>
+                                        </div>
                                     </div>
 
-                                    <% }) %>
-                                        <!-- <% } %> -->
-                                        <form action="/combine" method="POST">
-                                            <div class="btn-wrapper" id="submitBtn">
-                                                <button class="btn btn-primary" id="submitBtn" type="submit">Combine
-                                                    Quotes</button>
-                                            </div>
-                                        </form>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Project Name: <span>
+                                                <%= quote.projectName %>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">Developer Type: <span>
+                                                <%= quote.devType %>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item">Hours for that project: <span>
+                                                <%= quote.hours %>
+                                            </span></li>
+                                        <div id="total" class="card-footer bg-transparent border-success">Total:
+                                            <span id="finalBudget">
+                                                <%= quote.finalBudget.toFixed(2) %> £
+                                            </span>
+                                        </div>
+
+
+                                    </ul>
+                                </div>
+
+                                <% }) %>
+                                    <!-- <% } %> -->
+                                  
 
                 </div>
             </div>

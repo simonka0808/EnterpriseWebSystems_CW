@@ -34,6 +34,75 @@ router.get("/profile", (req, res) => {
     }
 });
 
+//get combine page
+router.get("/combine", async (req, res) => {
+    //if user is logged in
+    try {
+
+        if (req.isAuthenticated()) {
+
+            const combineQuotes = await Quote.find({ username: req.user.username });
+
+            res.render("combine", { combineQuotes });
+
+            //otherwise send them to main page
+
+        } else {
+            res.render("index");
+        }
+    } catch (err) {
+        console.log(err)
+
+    }
+
+});
+
+//get combine page
+router.post("/combineQuotes", async (req, res) => {
+    //if user is logged in
+    try {
+
+
+        if (req.isAuthenticated()) {
+            const firstQuote = await Quote.find({ projectName: req.body.firstQuote });
+            const secondQuote = await Quote.find({ projectName: req.body.secondQuote });
+
+            console.log(firstQuote.projectName)
+
+
+
+            // console.log(secondQuote);
+
+
+            // res.render("combine", { combineQuotes });
+
+
+
+
+            // const cominedQuote = new Quote({
+            //     projectName: firstQuote,
+            //     devType: data.devType,
+            //     hours: data.hours,
+            //     username: req.user.username,
+            //     hardwareRes: data.hardwareRes,
+            //     softwareRes: data.softwareRes,
+            //     finalBudget: finalBudget
+            // });
+
+            // const cominedQuote = quote.save();
+
+
+            //otherwise send them to main page
+        } else {
+            res.render("index");
+        }
+    } catch (err) {
+        console.log(err)
+
+    }
+
+});
+
 
 //get registration page page
 router.get("/register", (req, res) => {
@@ -63,7 +132,6 @@ router.get("/display", async (req, res) => {
     try {
         //display all quotes from fb
         const allQuotes = await Quote.find({ username: req.user.username });
-        // console.log("project name" + allQuotes.projectName)
         if (req.isAuthenticated()) {
             res.render("display", { allQuotes, isAuth: req.isAuthenticated() });
 
@@ -71,7 +139,6 @@ router.get("/display", async (req, res) => {
             res.render("login");
 
         }
-
 
     } catch (err) {
         res.send(err);
@@ -179,7 +246,19 @@ function CalculateFinalBudget(inputQuote) {
     totalHardwareRes = data.hardwareRes;
     totalSoftwareRes = data.softwareRes;
 
-    let physicalResources = totalHardwareRes + totalSoftwareRes;
+    let sumHardwareRes = 0
+    let sumSoftwareRes = 0
+
+    for (var i = 0; i < totalHardwareRes.length; i++) {
+        sumHardwareRes += Number(totalHardwareRes[i]);
+    }
+
+    for (var i = 0; i < totalSoftwareRes.length; i++) {
+        sumSoftwareRes += Number(totalSoftwareRes[i]);
+    }
+
+
+    let physicalResources = sumHardwareRes + sumSoftwareRes;
 
 
 
@@ -189,46 +268,18 @@ function CalculateFinalBudget(inputQuote) {
     let juniorPay = 10;
 
 
-
-    //final pay based on hours and positon
-    totalSeniorPay = workingHours * seniorPay;
-    totalJuniorPay = workingHours * juniorPay;
-    totalStandardPay = workingHours * standardPay;
-
-
-
-
     if (data.devType == "Junior") {
-        finalBudgetCost = (calculateRandomFudgeNum() * totalJuniorPay) + physicalResources
+        finalBudgetCost = (calculateRandomFudgeNum() * workingHours) * juniorPay + physicalResources
 
     } else if (data.devType = "Senior") {
-        finalBudgetCost = (calculateRandomFudgeNum() * totalSeniorPay) + physicalResources
+        finalBudgetCost = (calculateRandomFudgeNum() * workingHours) * seniorPay + physicalResources
     } else if (data.devType = "Standard") {
-        finalBudgetCost = (calculateRandomFudgeNum() * totalStandardPay) + physicalResources
+        finalBudgetCost = (calculateRandomFudgeNum() * workingHours) * standardPay + physicalResources
 
     }
     return finalBudgetCost;
 }
-//route to comnine quotes
 
-router.post('/combine',(req,res)=>{
-    data=req.body;
-
-    //get the selected checkbox
-
-    //get the id of that selcted checkbox(quote)
-    
-    const newQuote = new Quote({
-        projectName: body.id,
-        devType: data.devType,
-        hours: data.hours,
-        username: req.user.username,
-        hardwareRes: data.hardwareRes,
-        softwareRes: data.softwareRes,
-        finalBudget: finalBudget
-    });
-
-});
 //route to edit element
 router.post('/edit/:id', (req, res, next) => {
 
@@ -247,9 +298,8 @@ router.post('/edit/:id', (req, res, next) => {
     };
 
 
-
     Quote.findByIdAndUpdate({ _id: req.params.id }, updatedQuote, (err, docs) => {
-        // console.log(req.body.devType);
+
         if (err) {
             console.log("Something went wrong while updating the data!");
             console.log(docs)

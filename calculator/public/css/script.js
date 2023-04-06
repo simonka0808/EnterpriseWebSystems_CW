@@ -4,3 +4,4 @@ function addExtraResources() {
     section = document.getElementById('resouceElements')
     container.appendChild(section.cloneNode(true));
 }
+

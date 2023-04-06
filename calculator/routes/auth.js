@@ -9,14 +9,7 @@ const User = require('../models/User');
 
 passport.use(User.createStrategy());
 
-// passport.serializeUser(function (user, cb) {
-//     process.nextTick(function () {
-//         return cb(null, {
-//             id: user.id,
-//             username: user.username,
-//         });
-//     });
-// });
+
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
         return cb(null, {
@@ -52,6 +45,7 @@ router.get('/auth/logout', (req, res) => {
 //post request to register user in the db
 
 router.post("/auth/register", async (req, res) => {
+    
     try {
         //make the registration process
         const userToBeRegistered = await User.register({ username: req.body.username }, req.body.password);

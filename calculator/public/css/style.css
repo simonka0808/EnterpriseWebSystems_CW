@@ -68,6 +68,10 @@
     margin-bottom: 20px;
 }
 
+#resouceElements {
+    justify-content: center;
+}
+
 .add-human-resouces-main h6 {
     text-align: center;
 }

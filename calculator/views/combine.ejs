@@ -1,0 +1,42 @@
+<%- include('partials/header.ejs') %>
+
+    <%- include('partials/nav.ejs') %>
+        <form action="/combineQuotes" method="POST">
+            <div class="default-container form-group" id="calculatorWrapper">
+                <h2 class="default-header">Combine Quotes</h2>
+
+                <div class="row">
+                    <div class="col">
+                        <select name="firstQuote" id="firstQuoteDropdwon">
+                            <% combineQuotes.forEach(quote=> { %>
+
+                                <option value="<%= quote.projectName %>">
+                                    <%= quote.projectName %>
+                                </option>
+                                <% }) %>
+
+                        </select>
+                    </div>
+
+                    <div class="col">
+                        <select name="secondQuote" id="secondQuoteDropdwon">
+                            <% combineQuotes.forEach(quote=> { %>
+
+                                <option value="<%= quote.projectName %>">
+                                    <%= quote.projectName %>
+                                </option>
+                                <% }) %>
+
+                        </select>
+                    </div>
+
+                    <form>
+                        <div class="btn-wrapper" id="submitBtn">
+                            <button class="btn btn-primary" id="combineQuotes" type="submit">Combine
+                                Quotes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+        <%- include('partials/footer.ejs') %>
