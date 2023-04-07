@@ -64,23 +64,41 @@ router.post("/combineQuotes", async (req, res) => {
 
 
         if (req.isAuthenticated()) {
-            const firstQuote = await Quote.find({ projectName: req.body.firstQuote });
-            const secondQuote = await Quote.find({ projectName: req.body.secondQuote });
+            const firstQuoteName = await Quote.find({ projectName: req.body.firstQuoteName });
+            const secondQuoteName = await Quote.find({ projectName: req.body.secondQuoteName });
 
-        
+
+
+            //combining project names
+            var firstProjectName = req.body.firstQuoteName;
+            var secondProjectName = req.body.secondQuoteName;
+            var combinedProjectNames = firstProjectName.concat(" & ", secondProjectName);
+
+            //getting the hours
+            var firstQuoteHours = firstQuoteName[0].hours
+            var secondQuoteHours = secondQuoteName[0].hours;
+            var combinedHours = firstQuoteHours + secondQuoteHours;
+
+            //getting the final budget
+
+            var firstQuoteBudget = firstQuoteName[0].finalBudget
+            var secondQuoteBudget = secondQuoteName[0].finalBudget;
+            var combinedBudget = firstQuoteBudget + secondQuoteBudget;
+
+
             const combinedQuote = new Quote({
-                projectName: req.body.firstQuote.concat(" & ", req.body.secondQuote),
-                // devType: req.body.firstQuote.devType,
-                // hours: req.body.firstQuote.hours + req.body.secondQuote.hours
-                // username: req.user.username,
-                // hardwareRes: data.hardwareRes,
-                // softwareRes: data.softwareRes,
-                // finalBudget: finalBudget
+                projectName: combinedProjectNames,
+                devType: firstQuoteName[0].devType,
+                hours: combinedHours,
+                username: firstQuoteName[0].username,
+                finalBudget: combinedBudget
             });
 
             const saveCombinedQuote = combinedQuote.save();
 
-            !saveCombinedQuote && res.redirect('/display');
+            //redirect to all quotes if success
+            !saveCombinedQuote && res.redirect('/combineQuotes');
+            res.redirect('/display');
 
 
             //otherwise send them to main page
@@ -175,7 +193,6 @@ router.get('/delete/:id', (req, res, next) => {
 
 //route to show edit element
 router.get('/edit/:id', (req, res, next) => {
-    // console.log(req.params.id);
 
     if (req.isAuthenticated()) {
         Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
