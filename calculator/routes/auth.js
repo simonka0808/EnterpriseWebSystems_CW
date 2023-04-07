@@ -15,6 +15,7 @@ passport.serializeUser(function (user, cb) {
         return cb(null, {
             id: user.id,
             username: user.username,
+            checkIfAdmin: user.checkIfAdmin
         });
 
     });
@@ -41,11 +42,11 @@ router.get('/auth/logout', (req, res) => {
         res.redirect('/');
     });
 });
- 
+
 //post request to register user in the db
 
 router.post("/auth/register", async (req, res) => {
-    
+
     try {
         //make the registration process
         const userToBeRegistered = await User.register({ username: req.body.username }, req.body.password);

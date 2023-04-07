@@ -24,13 +24,22 @@ router.get("/", (req, res) => {
 });
 
 //get profile page
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
     //if user is logged in
-    if (req.isAuthenticated()) {
-        res.render("profile", { user: req.user.username });
-        //otherwise send them to main page
-    } else {
-        res.render("index");
+    try {
+        if (req.isAuthenticated()) {
+
+            const users = await User.find({ username: req.user.username });
+
+
+            res.render("profile", { users });
+            // console.log(req.user.checkIfAdmin)
+            //otherwise send them to main page
+        } else {
+            res.render("index");
+        }
+    } catch (err) {
+        console.log(err);
     }
 });
 
@@ -85,6 +94,15 @@ router.post("/combineQuotes", async (req, res) => {
             var secondQuoteBudget = secondQuoteName[0].finalBudget;
             var combinedBudget = firstQuoteBudget + secondQuoteBudget;
 
+            //getting the hardware resources
+            var firstQuoteSoftResources = firstQuoteName[0].softwareRes;
+            var firstQuoteHardwareResources = firstQuoteName[0].hardwareRes;
+            var totalP
+
+            var secondQuoteSoftResources = secondQuoteName[0].softwareRes;
+            var secondQuoteHardwareResources = secondQuoteName[0].hardwareRes;
+
+            console.log(firstQuoteSoftResources);
 
             const combinedQuote = new Quote({
                 projectName: combinedProjectNames,
@@ -94,11 +112,10 @@ router.post("/combineQuotes", async (req, res) => {
                 finalBudget: combinedBudget
             });
 
+            console.log(combinedQuote);
             const saveCombinedQuote = combinedQuote.save();
 
-            //redirect to all quotes if success
-            !saveCombinedQuote && res.redirect('/combineQuotes');
-            res.redirect('/display');
+            !saveCombinedQuote && res.redirect('/display');
 
 
             //otherwise send them to main page
@@ -139,6 +156,8 @@ router.get("/login", (req, res) => {
 
 router.get("/display", async (req, res) => {
     try {
+
+        //get the user collection
         //display all quotes from fb
         const allQuotes = await Quote.find({ username: req.user.username });
         if (req.isAuthenticated()) {
@@ -159,7 +178,11 @@ router.get("/display", async (req, res) => {
 router.get("/submit", async (req, res) => {
     //if user is logged in
     if (req.isAuthenticated()) {
+        // const users = await User.find({ username: req.user.username })
+
+        // res.render('calculator', { users })
         res.render('calculator')
+
     } else {
         res.redirect("/login");
     }
@@ -213,11 +236,13 @@ router.get('/edit/:id', (req, res, next) => {
 //create a quote
 router.post("/submit", async (req, res) => {
     let data = req.body;
+
+
+
     try {
 
 
         var finalBudget = CalculateFinalBudget(req.body);
-
         //create an object to be stored in the db with the current valeus
         const quote = new Quote({
             projectName: data.projectName,

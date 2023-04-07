@@ -1,10 +1,38 @@
 <%- include('partials/header.ejs') %>
 
     <%- include('partials/nav.ejs') %>
+
         <div class="default-container form-group" action="/profile" method="post">
-            <h2 class="default-header">Hello <span>
-                    <%= user %>
-                </span></h2>
+            <% users.forEach(user=> { %>
+
+                <% if(user.checkIfAdmin==="False" ){ %>
+
+                    <h2 class="default-header">Hello
+
+
+                        <span>
+                            <%= user.username %>
+                        </span>
+
+
+                    </h2>
+                    <% } else { %>
+
+                        <h2 class="default-header">Hello
+
+
+                            <span>
+                                <%= user.username %>
+                            </span>
+
+                        </h2>
+
+                        <p class="admin-message"> You are logged as an admin. You are able to calculate quotes without
+                            the fudge factor! 
+                        </p>
+                        <% } %>
+                            <% }) %>
+
         </div>
 
         <%- include('partials/footer.ejs') %>
