@@ -67,29 +67,20 @@ router.post("/combineQuotes", async (req, res) => {
             const firstQuote = await Quote.find({ projectName: req.body.firstQuote });
             const secondQuote = await Quote.find({ projectName: req.body.secondQuote });
 
-            console.log(firstQuote.projectName)
+        
+            const combinedQuote = new Quote({
+                projectName: req.body.firstQuote.concat(" & ", req.body.secondQuote),
+                // devType: req.body.firstQuote.devType,
+                // hours: req.body.firstQuote.hours + req.body.secondQuote.hours
+                // username: req.user.username,
+                // hardwareRes: data.hardwareRes,
+                // softwareRes: data.softwareRes,
+                // finalBudget: finalBudget
+            });
 
+            const saveCombinedQuote = combinedQuote.save();
 
-
-            // console.log(secondQuote);
-
-
-            // res.render("combine", { combineQuotes });
-
-
-
-
-            // const cominedQuote = new Quote({
-            //     projectName: firstQuote,
-            //     devType: data.devType,
-            //     hours: data.hours,
-            //     username: req.user.username,
-            //     hardwareRes: data.hardwareRes,
-            //     softwareRes: data.softwareRes,
-            //     finalBudget: finalBudget
-            // });
-
-            // const cominedQuote = quote.save();
+            !saveCombinedQuote && res.redirect('/display');
 
 
             //otherwise send them to main page

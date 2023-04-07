@@ -4,10 +4,11 @@
         <form action="/combineQuotes" method="POST">
             <div class="default-container form-group" id="calculatorWrapper">
                 <h2 class="default-header">Combine Quotes</h2>
+                <h6 class="default-subheader">Please use the dropdowns below to select the quotes you wish to combine</h6>
 
-                <div class="row">
+                <div class="row combine-dropdowns-wrapper">
                     <div class="col">
-                        <select name="firstQuote" id="firstQuoteDropdwon">
+                        <select class="combine-dropdown" name="firstQuote" id="firstQuoteDropdwon">
                             <% combineQuotes.forEach(quote=> { %>
 
                                 <option value="<%= quote.projectName %>">
@@ -19,7 +20,7 @@
                     </div>
 
                     <div class="col">
-                        <select name="secondQuote" id="secondQuoteDropdwon">
+                        <select class="combine-dropdown" name="secondQuote" id="secondQuoteDropdwon">
                             <% combineQuotes.forEach(quote=> { %>
 
                                 <option value="<%= quote.projectName %>">
@@ -30,12 +31,12 @@
                         </select>
                     </div>
 
-                    <form>
-                        <div class="btn-wrapper" id="submitBtn">
-                            <button class="btn btn-primary" id="combineQuotes" type="submit">Combine
-                                Quotes</button>
-                        </div>
-                    </form>
+                    
+
+                </div>
+                <div class="btn-wrapper" id="combineBtn">
+                    <button class="btn btn-primary" id="combineQuotes" type="submit">Combine
+                    </button>
                 </div>
             </div>
         </form>
