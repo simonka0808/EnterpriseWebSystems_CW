@@ -5,75 +5,104 @@
         <div class="default-container form-group" id="calculatorWrapper">
             <h2 class="default-header">Quotes and budgets for everyone</h2>
             <form id="budget" class="main-budget-wrapper" action="/submit" method="post">
-               
+                <% users.forEach(user=> { %>
 
-                <div class="field">
-                    <label for="projectName">Project name</label>
-                    <input name="projectName" id="projectNameText" class="form-control" type="text">
-                    <p id="projectNameCheck"></p>
+                    <% if(user.checkIfAdmin==="True" ){ %>
+                        <div class="field">
+                            <label>Do you want to apply a Fudge Factor:</label>
 
-                </div>
-
-                <div class="field">
-                    <label for="projectName">Select a Position:</label>
-
-                    <div class="form-check">
-                        <input type="radio" id="r1" name="devType" value="Junior">
-                        <label class="form-check-label" for="developerType1">
-                            Junior
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" id="r2" name="devType" value="Standard">
-                        <label class="form-check-label" for="developerType2">
-                            Standard
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" id="r3" name="devType" value="Senior" checked="checked">
-                        <label class="form-check-label" for="developerType3">
-                            Senior
-                        </label>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label for="hours">Hours:</label>
-                    <input name="hours" min="0" class="form-control" type="number">
-                    <p id="projectNameCheck"></p>
-
-                </div>
-
-
-
-                <div class="add-human-resouces-main">
-                    <h6>Add non-human resouces to your project:</h6>
-                    <div class="human-resources-wrapper container" id="humanResources">
-                        <div class="resouce-elements row" id="resouceElements">
-                            <div class="col-xs-12 col-sm-6">
-                                <label for="human-resource">Software</label>
-
-                                <input min="0" name="hardwareRes" class="form-control" type="number">
-
+                            <div class="form-check">
+                                <input type="radio" id="r1" name="fudge" value="Yes">
+                                <label class="form-check-label" for="developerType1">
+                                    Yes, apply!
+                                </label>
                             </div>
-                            <div class="col-xs-12 col-sm-6">
-                                <label for="human-resource">Hardware</label>
-
-                                <input min="0" name="softwareRes" class="form-control" type="number">
-
+                            <div class="form-check">
+                                <input type="radio" id="r2" name="fudge" value="No">
+                                <label class="form-check-label" for="developerType2">
+                                    No! Calculate without.
+                                </label>
                             </div>
 
                         </div>
+                        <% } else { %>
 
-                    </div>
-                    <div id="addHumanResources">
-                        <div onclick="addExtraResources()" class="btn btn btn-success">Add</div>
-                    </div>
-                </div>
+                            <div class="div"></div>
 
-                <div class="btn-wrapper" id="submitBtn">
-                    <button class="btn btn-primary" id="submitBtn" type="submit">Submit</button>
-                </div>
+                            <% } %>
+
+                                <% }) %>
+
+
+                                    <div class="field">
+                                        <label for="projectName">Project name</label>
+                                        <input name="projectName" id="projectNameText" class="form-control" type="text">
+                                        <p id="projectNameCheck"></p>
+
+                                    </div>
+
+                                    <div class="field">
+                                        <label for="projectName">Select a Position:</label>
+
+                                        <div class="form-check">
+                                            <input type="radio" id="r1" name="devType" value="Junior">
+                                            <label class="form-check-label" for="developerType1">
+                                                Junior
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="r2" name="devType" value="Standard">
+                                            <label class="form-check-label" for="developerType2">
+                                                Standard
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="r3" name="devType" value="Senior" checked="checked">
+                                            <label class="form-check-label" for="developerType3">
+                                                Senior
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <label for="hours">Hours:</label>
+                                        <input name="hours" min="0" class="form-control" type="number">
+                                        <p id="projectNameCheck"></p>
+
+                                    </div>
+
+
+
+                                    <div class="add-human-resouces-main">
+                                        <h6>Add non-human resouces to your project:</h6>
+                                        <div class="human-resources-wrapper container" id="humanResources">
+                                            <div class="resouce-elements row" id="resouceElements">
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <label for="human-resource">Software</label>
+
+                                                    <input min="0" name="hardwareRes" class="form-control"
+                                                        type="number">
+
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <label for="human-resource">Hardware</label>
+
+                                                    <input min="0" name="softwareRes" class="form-control"
+                                                        type="number">
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div id="addHumanResources">
+                                            <div onclick="addExtraResources()" class="btn btn btn-success">Add</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="btn-wrapper" id="submitBtn">
+                                        <button class="btn btn-primary" id="submitBtn" type="submit">Submit</button>
+                                    </div>
 
             </form>
         </div>

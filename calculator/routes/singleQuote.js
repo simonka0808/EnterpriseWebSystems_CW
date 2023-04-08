@@ -12,7 +12,13 @@ const seniorPay = process.env.SENIOR;
 const juniorPay = process.env.JUNIOR;
 const standardPay = process.env.STANDARD;
 
+
+//including fudge factor
 let finalBudgetCost;
+
+
+//without fudge factor - admin version
+let finalBudgetCostNoFudge;
 
 //get home
 router.get("/", (req, res) => {
@@ -181,10 +187,10 @@ router.get("/display", async (req, res) => {
 router.get("/submit", async (req, res) => {
     //if user is logged in
     if (req.isAuthenticated()) {
-        // const users = await User.find({ username: req.user.username })
+        const users = await User.find({ username: req.user.username })
 
-        // res.render('calculator', { users })
-        res.render('calculator')
+        res.render('calculator', { users })
+        // res.render('calculator')
 
     } else {
         res.redirect("/login");
@@ -216,15 +222,17 @@ router.get('/delete/:id', (req, res, next) => {
 
 //edit a quote
 //route to show edit element
-router.get('/edit/:id', (req, res, next) => {
+router.get('/edit/:id', async (req, res, next) => {
 
     if (req.isAuthenticated()) {
+        const users = await User.find({ username: req.user.username })
+
         Quote.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }, (err, docs) => {
             if (err) {
                 console.log("Cant edit data because of database issues!");
                 next(err);
             } else {
-                res.render('edit', { quotedb: docs });
+                res.render('edit', { users, quotedb: docs });
             }
         });
     } else {
@@ -241,9 +249,13 @@ router.post("/submit", async (req, res) => {
 
 
     try {
+        if (req.body.fudge == "Yes") {
 
+            finalBudget = CalculateFinalBudgetAdminVersion(req.body);
+        } else {
+            finalBudget = CalculateFinalBudget(req.body);
+        }
 
-        var finalBudget = CalculateFinalBudget(req.body);
         //create an object to be stored in the db with the current valeus
         const quote = new Quote({
             projectName: data.projectName,
@@ -252,6 +264,7 @@ router.post("/submit", async (req, res) => {
             username: req.user.username,
             hardwareRes: data.hardwareRes,
             softwareRes: data.softwareRes,
+            fudge: data.fudge,
             finalBudget: finalBudget
         });
 
@@ -268,9 +281,59 @@ router.post("/submit", async (req, res) => {
     }
 });
 
+//formula which does not include the fudge factor
+function CalculateFinalBudgetAdminVersion(inputQuote) {
+    data = inputQuote;
+
+    //apply fudge or not if admin
+    let fudge = data.fudge;
+
+
+    //working hours for the project
+    let workingHours = data.hours;
+
+
+    //any physical resources for the project
+    //should be added to the main budget
+    totalHardwareRes = data.hardwareRes;
+    totalSoftwareRes = data.softwareRes;
+
+    let sumHardwareRes = 0
+    let sumSoftwareRes = 0
+
+    for (var i = 0; i < totalHardwareRes.length; i++) {
+        sumHardwareRes += Number(totalHardwareRes[i]);
+    }
+
+    for (var i = 0; i < totalSoftwareRes.length; i++) {
+        sumSoftwareRes += Number(totalSoftwareRes[i]);
+    }
+
+
+    let physicalResources = sumHardwareRes + sumSoftwareRes;
+
+
+    if (data.devType == "Junior") {
+        finalBudgetCostNoFudge = workingHours * juniorPay + physicalResources
+
+    } else if (data.devType = "Senior") {
+        finalBudgetCostNoFudge = (workingHours * seniorPay) + physicalResources
+    } else if (data.devType = "Standard") {
+        finalBudgetCostNoFudge = (workingHours * standardPay) + physicalResources
+
+    }
+    return finalBudgetCostNoFudge;
+}
+
+//formula which includes the fudge factor
 function CalculateFinalBudget(inputQuote) {
 
     data = inputQuote
+
+    //apply fudge or not if admin
+    let fudge = data.fudge;
+
+
     //working hours for the project
     let workingHours = data.hours;
 

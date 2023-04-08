@@ -19,6 +19,10 @@ const quoteSchema = new mongoose.Schema({
 
     finalBudget: {
         type: 'number',
+    },
+
+    fudge: {
+        type: 'String'
     }
 
 
