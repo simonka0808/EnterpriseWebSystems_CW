@@ -106,7 +106,6 @@ router.post("/combineQuotes", async (req, res) => {
             var secondQuoteSoftResources = secondQuoteName[0].softwareRes;
             var secondQuoteHardwareResources = secondQuoteName[0].hardwareRes;
 
-            console.log(firstQuoteSoftResources);
 
             const combinedQuote = new Quote({
                 projectName: combinedProjectNames,
@@ -116,11 +115,11 @@ router.post("/combineQuotes", async (req, res) => {
                 finalBudget: combinedBudget
             });
 
-            console.log(combinedQuote);
             const saveCombinedQuote = combinedQuote.save();
 
-            !saveCombinedQuote && res.redirect('/display');
 
+            !saveCombinedQuote && res.redirect('/combineQuotes');
+            res.redirect('/display');
 
             //otherwise send them to main page
         } else {

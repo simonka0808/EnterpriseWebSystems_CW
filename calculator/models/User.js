@@ -1,5 +1,6 @@
 //import mongoose, passport-local-mongoose
 
+const { required } = require('joi');
 var mongoose = require('mongoose')
 var passportLocalMongoose = require('passport-local-mongoose');
 
@@ -9,12 +10,20 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
     username: {
+        type: 'String',
+        required: 'true'
+    },
+    password: {
         type: 'String'
     },
-    password: String,
     checkIfAdmin: {
         type: 'String',
         default: 'False'
+    }
+    ,
+    date: {
+        type: Date,
+        default: Date.now()
     }
 })
 
