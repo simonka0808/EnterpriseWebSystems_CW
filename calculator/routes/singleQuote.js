@@ -8,9 +8,11 @@ var passportLocalMongoose = require('passport-local-mongoose');
 const Quote = require('../models/SingleQuote');
 const User = require('../models/User');
 
+const seniorPay = process.env.SENIOR;
+const juniorPay = process.env.JUNIOR;
+const standardPay = process.env.STANDARD;
+
 let finalBudgetCost;
-
-
 
 //get home
 router.get("/", (req, res) => {
@@ -22,6 +24,8 @@ router.get("/", (req, res) => {
         res.render("index");
     }
 });
+
+
 
 //get profile page
 router.get("/profile", async (req, res) => {
@@ -192,7 +196,6 @@ router.get("/submit", async (req, res) => {
 
 
 // delete a quote from db
-
 router.get('/delete/:id', (req, res, next) => {
     Quote.findByIdAndDelete({ _id: req.params.id }, (err, docs) => {
         if (req.isAuthenticated()) {
@@ -213,7 +216,6 @@ router.get('/delete/:id', (req, res, next) => {
 
 
 //edit a quote
-
 //route to show edit element
 router.get('/edit/:id', (req, res, next) => {
 
@@ -292,13 +294,6 @@ function CalculateFinalBudget(inputQuote) {
 
 
     let physicalResources = sumHardwareRes + sumSoftwareRes;
-
-
-
-    //hourly pay for each employee based on position
-    let seniorPay = 30;
-    let standardPay = 20;
-    let juniorPay = 10;
 
 
     if (data.devType == "Junior") {
