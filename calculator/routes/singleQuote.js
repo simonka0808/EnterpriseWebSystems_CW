@@ -246,10 +246,12 @@ router.get('/edit/:id', async (req, res, next) => {
 router.post("/submit", async (req, res) => {
     let data = req.body;
 
+    console.log(req.body.devType)
+
 
 
     try {
-        if (req.body.fudge == "Yes") {
+        if (req.body.fudge == "No") {
 
             finalBudget = CalculateFinalBudgetAdminVersion(req.body);
         } else {
@@ -259,7 +261,7 @@ router.post("/submit", async (req, res) => {
         //create an object to be stored in the db with the current valeus
         const quote = new Quote({
             projectName: data.projectName,
-            devType: data.devType,
+            devType: req.body.devType,
             hours: data.hours,
             username: req.user.username,
             hardwareRes: data.hardwareRes,
@@ -316,9 +318,9 @@ function CalculateFinalBudgetAdminVersion(inputQuote) {
     if (data.devType == "Junior") {
         finalBudgetCostNoFudge = workingHours * juniorPay + physicalResources
 
-    } else if (data.devType = "Senior") {
+    } else if (data.devType == "Senior") {
         finalBudgetCostNoFudge = (workingHours * seniorPay) + physicalResources
-    } else if (data.devType = "Standard") {
+    } else if (data.devType == "Standard") {
         finalBudgetCostNoFudge = (workingHours * standardPay) + physicalResources
 
     }
@@ -361,13 +363,13 @@ function CalculateFinalBudget(inputQuote) {
     if (data.devType == "Junior") {
         finalBudgetCost = (calculateRandomFudgeNum() * workingHours) * juniorPay + physicalResources
 
-    } else if (data.devType = "Senior") {
+    } else if (data.devType == "Senior") {
         finalBudgetCost = (calculateRandomFudgeNum() * workingHours) * seniorPay + physicalResources
-    } else if (data.devType = "Standard") {
+    } else if (data.devType == "Standard") {
         finalBudgetCost = (calculateRandomFudgeNum() * workingHours) * standardPay + physicalResources
 
     }
-    return finalBudgetCost;
+    return finalBudgetCost
 }
 
 //route to edit element

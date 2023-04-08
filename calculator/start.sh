@@ -15,7 +15,7 @@ cd calculator
 
 npm install
 
-# please download the .env file from the dropdown and add it inside calculator folder
+# please download the .env file from the dropdown and add it inside the calculator folder(main directory)
 
 sudo npx nodemon index.js
 
