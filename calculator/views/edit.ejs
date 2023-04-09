@@ -22,13 +22,14 @@
                             <label>Do you want to apply a Fudge Factor:</label>
 
                             <div class="form-check">
-                                <input type="radio" name="fudge" value="Yes">
+                                <input type="radio" name="fudge" value="Yes" <%=quotedb.fudge==='Yes' ? 'checked' : ''
+                                    %>>
                                 <label class="form-check-label">
                                     Yes, apply!
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" name="fudge" value="No" <%=quotedb.fudge? 'checked' : '' %>>
+                                <input type="radio" name="fudge" value="No" <%=quotedb.fudge==='No' ? 'checked' : '' %>>
                                 <label class="form-check-label">
                                     No! Calculate without.
                                 </label>
@@ -47,22 +48,26 @@
                                         <label for="projectName">Select a Position:</label>
 
                                         <div class="form-check">
-                                            <input type="radio" name="devType" value="Junior">
+                                            <input type="radio" name="devType" value="Junior"
+                                                <%=quotedb.devType==='Junior' ? 'checked' : '' %>>
                                             <label class="form-check-label">
                                                 Junior
                                             </label>
                                         </div>
 
                                         <div class="form-check">
-                                            <input type="radio" name="devType" value="Senior" <%=quotedb.devType? 'checked' : '' %>>
-                                            <label class="form-check-label">
-                                                Senior
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input type="radio" name="devType" value="Standard">
+                                            <input type="radio" name="devType" value="Standard"
+                                                <%=quotedb.devType==='Standard' ? 'checked' : '' %> >
                                             <label class="form-check-label">
                                                 Standard
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <input type="radio" name="devType" value="Senior"
+                                                <%=quotedb.devType==='Senior' ? 'checked' : '' %> >
+                                            <label class="form-check-label">
+                                                Senior
                                             </label>
                                         </div>
                                     </div>

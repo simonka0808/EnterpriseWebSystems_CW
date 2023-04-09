@@ -246,9 +246,6 @@ router.get('/edit/:id', async (req, res, next) => {
 router.post("/submit", async (req, res) => {
     let data = req.body;
 
-    console.log(req.body.devType)
-
-
 
     try {
         if (req.body.fudge == "No") {
@@ -385,6 +382,7 @@ router.post('/edit/:id', (req, res, next) => {
         hours: data.hours,
         username: data.username,
         hardwareRes: data.hardwareRes,
+        fudge: data.fudge,
         softwareRes: data.softwareRes,
         finalBudget: finalBudgetUpdated
     };
