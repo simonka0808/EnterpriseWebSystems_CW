@@ -9,11 +9,12 @@
 
 }
 
-.admin-message{
+.admin-message {
     padding: 20px;
     font-style: italic;
     text-align: center;
 }
+
 .default-header {
     padding: 20px;
     color: black;
@@ -140,6 +141,15 @@
     padding: 10px;
 }
 
-#combineBtn{
+#combineBtn {
     margin-top: 50px;
+}
+
+
+/* navbar active page */
+
+#bs-example-navbar-collapse-1 .navbar-nav li.active>a {
+    background-color: #333;
+    color: red;
+    font-weight: bold;
 }
