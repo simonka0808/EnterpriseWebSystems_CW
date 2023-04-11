@@ -13,9 +13,6 @@ cd calculator
 
 call npm install
 
-::please before running the server
-::download the .env file from the dropdown and add it inside the calculator folder(main directory)
-
 npx nodemon index.js
 
 |
