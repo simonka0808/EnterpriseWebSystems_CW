@@ -11,5 +11,5 @@ move ".env" "./cm4025_cw/calculator"
 
 call npm install
 
-npx nodemon index.js
+node index.js
 
